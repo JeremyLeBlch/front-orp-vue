@@ -1,0 +1,39 @@
+
+export enum UserRole {
+    user = "user",
+    planning = "planning",
+    admin = "admin",
+    intervention = "intervention"
+}
+
+export default class User {
+    id: number;
+    last_name: string;
+    first_name: string;
+    email: string;
+    address: string;
+    profil_picture_url: string;
+    user_role: UserRole;
+    company_code: number;
+    active: boolean;
+
+    constructor(data: User){
+        this.id = data.id;
+        this.last_name = data.last_name;
+        this.first_name = data.first_name;
+        this.email = data.email;
+        this.address = data.address;
+        this.profil_picture_url = data.profil_picture_url;
+        this.user_role = data.user_role;
+        this.company_code = data.company_code;
+        this.active = data.active;
+    }
+
+    get fullName(){
+        return this.first_name + " " + this.last_name;
+    }
+
+    get isUser() {
+        return this.user_role === UserRole.user;
+    }
+}
