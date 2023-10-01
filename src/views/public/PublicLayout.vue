@@ -1,6 +1,7 @@
 <template>
     <div class="text-center">
         <LogoOrp/>
+
     </div>
 
     {{ authStore.user?.email ?? "offline" }}
@@ -15,6 +16,7 @@
 import {RouteName} from "@/router";
 import LogoOrp from "@/components/common/LogoOrp.vue";
 import {useAuthStore} from "@/stores/auth-store";
+import Header from "@/components/Header.vue";
 
 const authStore = useAuthStore();
 
