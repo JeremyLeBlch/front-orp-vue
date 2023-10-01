@@ -25,6 +25,9 @@
   import { ref } from "vue";
   import TieredMenu from 'primevue/tieredmenu';
   import 'primeicons/primeicons.css';
+  import {RouteName} from "@/router";
+  import {useRouter} from "vue-router";
+  const router = useRouter();
   const menu = ref();
   const items = ref([
     {
@@ -42,7 +45,8 @@
       icon: 'pi pi-fw pi-power-off',
       command: () => {
         authStore.logout();
-      }
+        router.push({ name: RouteName.login });
+      },
     }
   ]);
 
