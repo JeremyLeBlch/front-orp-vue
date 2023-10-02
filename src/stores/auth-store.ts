@@ -9,7 +9,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     const parseTokenToUser = (token: string) => {
          try {
-            const userInfo: {iat: number, user: User} = jwt_decode(token);
+            const userInfo: {user: User} = jwt_decode(token);
             user.value = new User(userInfo.user);
          } catch(err){
             // skip

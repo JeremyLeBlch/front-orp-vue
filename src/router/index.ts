@@ -16,13 +16,16 @@ export enum RouteName {
     dashboardAdmin = "dashboardAdmin",
     dashboardClient = "dashboardClient",
     dashboardTechnician = "dashboardTechnician",
+    kpi = "kpi",
+    manageUser = "manageUser",
+    manageParc = "manageParc"
 }
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { 
-            path: "/", 
+        {
+            path: "/",
             component: PublicLayout,
             children: [
                 {
@@ -40,7 +43,7 @@ const router = createRouter({
         {
             path: "/dashboard",
             component: DashboardLayout,
-            children:[
+            children: [
                 {
                     path: "",
                     name: RouteName.dashboard,

@@ -15,7 +15,7 @@
       </div>
       <div v-else>
         <div>
-          {{ authStore.user.fullName }}
+          {{ authStore.user.fullName() }}
         </div>
         <Button label="logout" @click="authStore.logout"/>
       </div>

@@ -29,11 +29,24 @@ export default class User {
         this.active = data.active;
     }
 
-    get fullName(){
+    public fullName(){
         return this.first_name + " " + this.last_name;
     }
 
-    get isUser() {
+    public isUser() {
         return this.user_role === UserRole.user;
     }
+
+    public isAdmin() {
+        return this.user_role === UserRole.admin;
+    }
+
+    public isTechnician() {
+        return this.user_role === UserRole.intervention;
+    }
+
+    public isPlanning() {
+        return this.user_role === UserRole.planning;
+    }
 }
+
