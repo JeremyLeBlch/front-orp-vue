@@ -19,14 +19,16 @@
 
 <script setup>
   import {useAuthStore} from "@/stores/auth-store";
-  const authStore = useAuthStore();
   import Sidebar from 'primevue/sidebar';
-  const visible = ref(false);
   import { ref } from "vue";
   import TieredMenu from 'primevue/tieredmenu';
   import 'primeicons/primeicons.css';
   import {RouteName} from "@/router";
   import {useRouter} from "vue-router";
+
+  const authStore = useAuthStore();
+  const visible = ref(false);
+
   const router = useRouter();
   const menu = ref();
   const items = ref([

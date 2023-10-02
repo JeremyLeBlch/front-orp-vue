@@ -6,6 +6,7 @@ import router from "@/router";
 import "./assets/theme.css";
 import './assets/main.css';
 import 'primeflex/primeflex.css';
+import TieredMenu from 'primevue/tieredmenu';
 // import "primeicons/primeicons.css";
 // import 'primevue/resources/themes/md-light-indigo/theme.css';
 import 'primevue/resources/primevue.min.css';
