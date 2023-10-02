@@ -5,7 +5,7 @@
 <script setup lang="ts">
 
 
-import Sidemenu from "@/components/navbar.vue";
+import Sidemenu from "@/components/NavBar.vue";
 </script>
 <style scoped>
 

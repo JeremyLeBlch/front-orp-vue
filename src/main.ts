@@ -6,11 +6,10 @@ import router from "@/router";
 import "./assets/theme.css";
 import './assets/main.css';
 import 'primeflex/primeflex.css';
-import TieredMenu from 'primevue/tieredmenu';
-// import "primeicons/primeicons.css";
+import "primeicons/primeicons.css";
 // import 'primevue/resources/themes/md-light-indigo/theme.css';
 import 'primevue/resources/primevue.min.css';
-
+import TieredMenu from 'primevue/tieredmenu';
 import PrimeVue from 'primevue/config';
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
@@ -29,6 +28,7 @@ app.component('Button', Button);
 app.component('InputText', InputText);
 app.component('Toast', Toast);
 app.component('Password', Password);
+app.component('TieredMenu', TieredMenu);
 
 // start
 app.mount('#app');
