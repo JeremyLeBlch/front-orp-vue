@@ -9,10 +9,16 @@
       </Sidebar>
       <Button icon="pi pi-bars" @click="visible = true" />
     </div>
-    <div class="card flex align-items-center justify-content-center">
-      <Button type="button" icon="pi pi-user" @click="toggleMenu" aria-haspopup="true" aria-controls="overlay_tmenu" />
-      <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
-    </div>
+      <div class="flex align-items-center justify-content-center gap-3">
+        <div class="block sm:hidden"> </div>
+        <div class="hidden sm:block">
+          {{ authStore.user.fullName }}
+        </div>
+        <div class="card flex align-items-center justify-content-center">
+          <Button type="button" icon="pi pi-user" @click="toggleMenu" aria-haspopup="true" aria-controls="overlay_tmenu" />
+          <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup />
+        </div>
+      </div>
   </div>
 </template>
 
