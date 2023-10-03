@@ -9,6 +9,9 @@
         <RouterLink :to="{name: RouteName.dashboardTechnician}">
             <Button label="Tech" />
         </RouterLink>
+        <RouterLink :to="{name: RouteName.dashboardPlanning}">
+          <Button label="Planning" />
+        </RouterLink>
     </div>
 </template>
 <script setup lang="ts">

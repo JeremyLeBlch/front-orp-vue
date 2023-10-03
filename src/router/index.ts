@@ -7,6 +7,7 @@ import DashboardHome from '@/views/dashboard/DashboardHome.vue';
 import HomeAdmin from '@/views/dashboard/HomeAdmin.vue';
 import HomeClient from "@/views/dashboard/HomeClient.vue";
 import HomeTechnician from '@/views/dashboard/HomeTechnician.vue';
+import HomePlanning from "@/views/dashboard/HomePlanning.vue";
 
 export enum RouteName {
     home = "home",
@@ -16,9 +17,19 @@ export enum RouteName {
     dashboardAdmin = "dashboardAdmin",
     dashboardClient = "dashboardClient",
     dashboardTechnician = "dashboardTechnician",
+    dashboardPlanning = "dashboardPlanning",
     kpi = "kpi",
     manageUser = "manageUser",
-    manageParc = "manageParc"
+    manageParc = "manageParc",
+    newTicket = "newTicket",
+    customerHistory = "customerHistory",
+    customerParc = "customerParc",
+    customerReview = "customerReview",
+    messaging = "messaging",
+    planning = "planning",
+    allTickets = "allTickets",
+    allParc = "allParc",
+    ticketsByTechnicians ="ticketsByTechnicians"
 }
 
 const router = createRouter({
@@ -64,6 +75,11 @@ const router = createRouter({
                     name: RouteName.dashboardTechnician,
                     component: HomeTechnician
                 },
+                {
+                    path: "planning",
+                    name: RouteName.dashboardPlanning,
+                    component: HomePlanning
+                },
             ]
         }
     ],
@@ -75,6 +91,7 @@ const router = createRouter({
 { path: '/app', component: App },
 { path: '/app/client', component: HomeClient },
 { path: '/app/technician', component: HomeTechnician },
+{ path: '/app/planning', component: HomePlanning },
 { path: '/app/admin', component: HomeAdmin },
 { path: '/:catchAll(.*)', redirect: '/' },
 */

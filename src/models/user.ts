@@ -1,11 +1,3 @@
-
-export enum UserRole {
-    user = "user",
-    planning = "planning",
-    admin = "admin",
-    intervention = "intervention"
-}
-
 export default class User {
     id: number;
     last_name: string;
@@ -13,7 +5,7 @@ export default class User {
     email: string;
     address: string;
     profil_picture_url: string;
-    user_role: UserRole;
+    user_role: string; // -> avant c'était UserRole
     company_code: number;
     active: boolean;
 
@@ -34,19 +26,19 @@ export default class User {
     }
 
     public isUser() {
-        return this.user_role === UserRole.user;
+        return this.user_role === "user";
     }
 
     public isAdmin() {
-        return this.user_role === UserRole.admin;
+        return this.user_role === "admin";
     }
 
     public isTechnician() {
-        return this.user_role === UserRole.intervention;
+        return this.user_role === "intervention";
     }
 
     public isPlanning() {
-        return this.user_role === UserRole.planning;
+        return this.user_role === "planning";
     }
 }
 

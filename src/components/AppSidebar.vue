@@ -32,7 +32,6 @@ const sidebarMenuItems = computed(() => {
   }
   return [];
 });
-
 const adminRoutes = [
   {
     label: 'KPI',
@@ -48,8 +47,51 @@ const adminRoutes = [
   }
 ];
 
-const userRoutes = [];
-const techRoutes = [];
-const planningRoutes = [];
+const userRoutes = [
+  {
+    label: 'Nouveau Ticket',
+    command: () => router.push({name: RouteName.newTicket})
+  },
+  {
+    label: 'Historique',
+    command: () => router.push({name: RouteName.customerHistory})
+  },
+  {
+    label: 'Parc',
+    command: () => router.push({name: RouteName.customerParc})
+  },
+  {
+    label: 'Avis',
+    command: () => router.push({name: RouteName.customerReview})
+  },
+  {
+    label: 'Messagerie',
+    command: () => router.push({name: RouteName.messaging})
+  }
+];
+const planningRoutes = [
+  {
+    label: 'Planning',
+    command: () => router.push({name: RouteName.planning})
+  },
+  {
+    label: 'Ticket',
+    command: () => router.push({name: RouteName.allTickets})
+  },
+  {
+    label: 'Parc Client',
+    command: () => router.push({name: RouteName.allParc})
+  },
+  {
+    label: 'Messagerie',
+    command: () => router.push({name: RouteName.messaging})
+  }
+];
+const techRoutes = [
+  {
+    label: 'Ticket',
+    command: () => router.push({name: RouteName.ticketsByTechnicians})
+  }
+];
 
 </script>
