@@ -1,6 +1,6 @@
 <template>
   <NavBar/>
-  <RouterView class="flex align-items justify-content-center"/>
+  <RouterView />
 </template>
 <script setup lang="ts">
 

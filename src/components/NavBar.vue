@@ -1,11 +1,11 @@
 <template>
-  <div class="flex justify-content-between flex-wrap">
+  <div class="flex justify-content-between">
     <AppSidebar />
     <div class="flex align-items-center justify-content-center gap-3">
       <div class="hidden sm:block">
         {{ authStore.user.fullName() }}
       </div>
-      <div class="card flex align-items-center justify-content-center">
+      <div class="flex align-items-center justify-content-center">
         <Button type="button" icon="pi pi-user" @click="toggleMenu" />
         <TieredMenu ref="menu" :model="tieredMenuItems" popup/>
       </div>

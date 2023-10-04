@@ -16,6 +16,8 @@ import Button from "primevue/button";
 import Toast from "primevue/toast";
 import ToastService from 'primevue/toastservice';
 import Password from "primevue/password";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
 
 const app = createApp(App);
 app.use(createPinia());
@@ -29,6 +31,8 @@ app.component('InputText', InputText);
 app.component('Toast', Toast);
 app.component('Password', Password);
 app.component('TieredMenu', TieredMenu);
+app.component("DataTable", DataTable);
+app.component("Column", Column);
 
 // start
 app.mount('#app');

@@ -26,17 +26,20 @@
 </template>
 <script setup lang="ts">
 import {ref} from 'vue';
-import { useRouter } from 'vue-router';
 import {useAuthStore} from "@/stores/auth-store";
 
-const router = useRouter();
 const authStore = useAuthStore();
-
 const email = ref('');
 const password = ref('');
 
 const login = async () => {
-  await authStore.login(email.value, password.value);
+  try {
+    await authStore.login(email.value, password.value);
+    email.value = "";
+    password.value = "";
+  } catch (err){
+    // todo show error
+  }
 }
 
 </script>
