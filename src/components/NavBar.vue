@@ -5,7 +5,7 @@
       <div class="hidden sm:block">
         {{ authStore.user.fullName() }}
       </div>
-      <div class="flex align-items-center justify-content-center">
+      <div class="flex align-items-center justify-content-center pb-2	">
         <Button type="button" icon="pi pi-user" @click="toggleMenu" />
         <TieredMenu ref="menu" :model="tieredMenuItems" popup/>
       </div>

@@ -18,6 +18,14 @@ import ToastService from 'primevue/toastservice';
 import Password from "primevue/password";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import Textarea from "primevue/textarea";
+import Rating from 'primevue/rating';
+import Listbox from 'primevue/listbox';
+import Dropdown from "primevue/dropdown";
+import Card from "primevue/card";
+import Tag from 'primevue/tag';
+import Calendar from 'primevue/calendar';
+
 
 const app = createApp(App);
 app.use(createPinia());
@@ -33,6 +41,14 @@ app.component('Password', Password);
 app.component('TieredMenu', TieredMenu);
 app.component("DataTable", DataTable);
 app.component("Column", Column);
+app.component("Textarea", Textarea);
+app.component("Rating", Rating);
+app.component("Listbox", Listbox);
+app.component("Dropdown", Dropdown);
+app.component('Card', Card);
+app.component('Tag', Tag);
+app.component('Calendar', Calendar);
+
 
 // start
 app.mount('#app');
