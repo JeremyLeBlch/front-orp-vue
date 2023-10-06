@@ -25,6 +25,7 @@ import Dropdown from "primevue/dropdown";
 import Card from "primevue/card";
 import Tag from 'primevue/tag';
 import Calendar from 'primevue/calendar';
+import Divider from 'primevue/divider';
 
 
 const app = createApp(App);
@@ -48,6 +49,7 @@ app.component("Dropdown", Dropdown);
 app.component('Card', Card);
 app.component('Tag', Tag);
 app.component('Calendar', Calendar);
+app.component("Divider", Divider);
 
 
 // start

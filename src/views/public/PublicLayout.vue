@@ -1,14 +1,7 @@
 <template>
     <div class="text-center">
         <LogoOrp/>
-
     </div>
-
-    {{ authStore.user?.email ?? "offline" }}
-
-    <RouterLink :to="{name: RouteName.dashboard}">
-        <Button label="Dashboard" />
-    </RouterLink>
 
     <RouterView />
 </template>
