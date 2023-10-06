@@ -7,7 +7,7 @@
     <Button icon="pi pi-bars" @click="visible = true"/>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import {useAuthStore} from "@/stores/auth-store";
 import Sidebar from 'primevue/sidebar';
 import Menu from 'primevue/menu';
@@ -32,65 +32,71 @@ const sidebarMenuItems = computed(() => {
   }
   return [];
 });
+
+function openPage(routeName: RouteName) {
+  router.push({name: routeName});
+  visible.value = false;
+}
+
 const adminRoutes = [
   {
     label: 'KPI',
-    command: () => router.push({name: RouteName.kpi})
+    command: () => openPage(RouteName.kpi)
   },
   {
     label: 'Gestion User',
-    command: () => router.push({name: RouteName.manageUser})
+    command: () => openPage(RouteName.manageUser)
   },
   {
     label: 'Gestion Parc',
-    command: () => router.push({name: RouteName.manageParc})
+    command: () => openPage(RouteName.manageParc)
   }
 ];
 
 const userRoutes = [
   {
     label: 'Nouveau Ticket',
-    command: () => router.push({name: RouteName.newTicket})
+    command: () => openPage(RouteName.newTicket)
   },
   {
     label: 'Historique',
-    command: () => router.push({name: RouteName.customerHistory})
+    command: () => openPage(RouteName.customerHistory)
   },
   {
     label: 'Parc',
-    command: () => router.push({name: RouteName.customerParc})
+    command: () => openPage(RouteName.customerParc)
   },
   {
     label: 'Avis',
-    command: () => router.push({name: RouteName.customerReview})
+    command: () => openPage(RouteName.customerReview)
   },
   {
     label: 'Messagerie',
-    command: () => router.push({name: RouteName.messaging})
+    command: () => openPage(RouteName.messaging)
   }
 ];
 const planningRoutes = [
   {
     label: 'Planning',
-    command: () => router.push({name: RouteName.planning})
+    command: () => openPage(RouteName.planning)
   },
   {
     label: 'Ticket',
-    command: () => router.push({name: RouteName.allTickets})
+    command: () => openPage(RouteName.allTickets)
   },
   {
     label: 'Parc Client',
-    command: () => router.push({name: RouteName.allParc})
+    command: () => openPage(RouteName.allParc)
   },
   {
     label: 'Messagerie',
-    command: () => router.push({name: RouteName.messaging})
+    command: () => openPage(RouteName.messaging)
   }
 ];
 const techRoutes = [
   {
     label: 'Ticket',
-    command: () => router.push({name: RouteName.ticketsByTechnicians})
+    command: () => openPage(RouteName.ticketsByTechnicians)
   }
 ];
 

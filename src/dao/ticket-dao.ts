@@ -24,8 +24,13 @@ export const ticketDao = {
             }
         });
 
-        const data: any[] = await response.json();
-        return data ?? []; // on retourne data, si null un tableau vide
+        const jsonData: Ticket[] = await response.json();
+        const tabTickets = [];
+        for (const ticket of jsonData){
+            tabTickets.push(new Ticket(ticket))
+        }
+
+        return tabTickets;
     },
 
     getTicketId: async (ticketId : number): Promise<Ticket> => {
@@ -36,7 +41,8 @@ export const ticketDao = {
             }
         });
 
-        return await response.json();
+        const jsonData = await response.json();
+        return new Ticket(jsonData);
     }
 };
 
