@@ -3,6 +3,11 @@
     <div class="left-panel">
       <DataTable :value="userStore.users" @row-click="onRowSelect">
         <Column field="id" header="ID" class="border-solid"/>
+        <Column field="fullName()" header="Nom d'utilisateur">
+          <template #body="{data}">
+            {{ (data as User).fullName() }}
+          </template>
+        </Column>
       </DataTable>
 <!--      v companycode -> <DataTable :value="deviceStore.devices" @row-click="onRowSelect">-->
 <!--        <Column field="id" header="ID" class="border-solid"/>-->
@@ -10,7 +15,7 @@
 <!--      </DataTable>-->
     </div>
     <div class="flex-grow-1 h-min">
-      <USerDetail :user="selectedUser" v-if="selectedUser"/>
+      <UserDetail :user="selectedUser" v-if="selectedUser"/>
     </div>
   </div>
 </template>
@@ -19,7 +24,8 @@ import {onMounted, ref} from 'vue';
 import {useUserStore} from "@/stores/user-store";
 import {useAuthStore} from "@/stores/auth-store";
 import User from "@/models/user";
-import USerDetail from "@/components/user/USerDetail.vue";
+import UserDetail from "@/components/user/UserDetail.vue";
+
 
 const authStore = useAuthStore();
 const userStore = useUserStore();

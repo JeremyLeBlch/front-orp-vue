@@ -5,15 +5,59 @@
         <div class="flex align-items-center">
           <div>{{ user?.fullName() }}</div>
         </div>
-<!--        <div class="flex align-items-center">-->
-<!--          <label for="rating" class="flex align-items-center pr-2 text-sm">Role</label>-->
-<!--          <Rating id="rating" v-model="user.user_role" :cancel="false"/>-->
-<!--        </div>-->
         <div class="card flex justify-content-center">
-          <Dropdown v-model="selectedRole" :options="userRoles" placeholder="Sélection du rôle" class="w-full md:w-14rem" />
+          <Dropdown v-model="selectedRole" :options="userRoles.filter((role, index, self) => self.indexOf(role) === index)" placeholder="Sélection du rôle" class="w-full md:w-14rem" />
+
         </div>
       </div>
     </template>
+    <template #content>
+      <form @submit="saveUser">
+        <div class="flex flex-row">
+
+          <div class="flex-grow-1">
+            <h3>t'es la la colone des users ou pas?</h3>
+                  <table v-if="userStore.user" class="w-full">
+                    <tr>
+                      <th class="bg-primary-900 p-2 text-left">ID</th>
+                      <td class="p-2">{{userStore.user.id}}</td>
+                    </tr>
+                    <tr>
+                      <th class="bg-primary-900 p-2 text-left">Entreprise</th>
+                      <td class="p-2">{{userStore.user.company_code}}</td>
+                    </tr>
+                    <tr>
+                      <th class="bg-primary-900 p-2 text-left">Prénom</th>
+                      <td class="p-2">{{userStore.user.first_name}}</td>
+                    </tr>
+                    <tr>
+                      <th class="bg-primary-900 p-2 text-left">Nom</th>
+                      <td class="p-2">{{userStore.user.last_name}}</td>
+                    </tr>
+                    <tr>
+                      <th class="bg-primary-900 p-2 text-left">Email</th>
+                      <td class="p-2">{{userStore.user.email}}</td>
+                    </tr>
+                    <tr>
+                      <th class="bg-primary-900 p-2 text-left">Adresse</th>
+                      <td class="p-2">{{userStore.user.address}}</td>
+                    </tr>
+                    <tr>
+                      <th class="bg-primary-900 p-2 text-left">Photo de profil</th>
+                      <td class="p-2">{{userStore.user.profil_picture_url}}</td>
+                    </tr>
+                  </table>
+          </div>
+        </div>
+        <div class="mx-auto">
+          <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveUser"
+                  class="m-4" severity="success"/>
+          <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"/>
+          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
+        </div>
+      </form>
+    </template>
+
 <!--    <template #content>-->
 <!--      <form @submit="saveTicket">-->
 <!--        <div class="flex flex-row">-->
@@ -162,10 +206,12 @@ const saveUser = async () => {
 
 onMounted(() => {
   userStore.getUsers(authStore.user);
+  console.log(userStore.user);
 });
 
 const selectedRole = ref(null);
 const userRoles = userStore.userRoles;
+
 
 </script>
 <style scoped>
