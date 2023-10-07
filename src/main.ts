@@ -20,6 +20,7 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Textarea from "primevue/textarea";
 import Rating from 'primevue/rating';
+import TreeSelect from 'primevue/treeselect';
 import Listbox from 'primevue/listbox';
 import Dropdown from "primevue/dropdown";
 import Card from "primevue/card";
@@ -44,6 +45,7 @@ app.component("DataTable", DataTable);
 app.component("Column", Column);
 app.component("Textarea", Textarea);
 app.component("Rating", Rating);
+app.component("TreeSelect",TreeSelect)
 app.component("Listbox", Listbox);
 app.component("Dropdown", Dropdown);
 app.component('Card', Card);
