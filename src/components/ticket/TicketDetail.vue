@@ -158,16 +158,17 @@ const saveTicket = async () => {
   loading.value = false;
 };
 
-
-onMounted(() => {
-  ticketStore.getTickets(authStore.user);
+function refreshTicket (){
   deviceStore.getDeviceById(ticket.value.code_machine);
   userStore.getUserById(ticket.value.code_client);
+}
+onMounted(() => {
+  ticketStore.getTickets(authStore.user);
+  refreshTicket();
 });
 
 watch(ticket, () => {
-  deviceStore.getDeviceById(ticket.value.code_machine);
-  userStore.getUserById(ticket.value.code_client);
+  refreshTicket();
 });
 
 </script>

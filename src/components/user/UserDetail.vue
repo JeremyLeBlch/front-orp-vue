@@ -186,10 +186,14 @@ const props = defineProps({
 
 const {user} = toRefs(props);
 
-watch(user, () => {
-  // v companystore -> companyStore.getUsers(user.value.company_code);
+function refreshUser () {
   selectedRole.value = user.value.user_role;
   userStore.getUserById(user.value.id);
+}
+
+watch(user, () => {
+  // v companystore -> companyStore.getUsers(user.value.company_code);
+  refreshUser();
 });
 
 const active = ref(null);
@@ -201,11 +205,9 @@ const saveUser = async () => {
   loading.value = false;
 };
 
-
 onMounted(() => {
   userStore.getUsers(authStore.user);
-  selectedRole.value = user.value.user_role;
-  userStore.getUserById(user.value.id);
+  refreshUser();
 });
 
 const selectedRole = ref(null);
