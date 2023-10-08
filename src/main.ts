@@ -27,6 +27,8 @@ import Card from "primevue/card";
 import Tag from 'primevue/tag';
 import Calendar from 'primevue/calendar';
 import Divider from 'primevue/divider';
+import Image from 'primevue/image';
+import FileUpload from 'primevue/fileupload';
 
 
 const app = createApp(App);
@@ -52,6 +54,8 @@ app.component('Card', Card);
 app.component('Tag', Tag);
 app.component('Calendar', Calendar);
 app.component("Divider", Divider);
+app.component("Image", Image);
+app.component("FileUpload", FileUpload);
 
 
 // start
