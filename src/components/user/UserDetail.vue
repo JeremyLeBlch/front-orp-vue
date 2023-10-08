@@ -1,5 +1,5 @@
 <template>
-  <Card v-if="user" class="h-min">
+  <Card class="h-min">
     <template #title>
       <div class="flex flex-row justify-content-between">
         <div class="flex align-items-center">
@@ -7,16 +7,13 @@
         </div>
         <div class="card flex justify-content-center">
           <Dropdown v-model="selectedRole" :options="userRoles.filter((role, index, self) => self.indexOf(role) === index)" placeholder="Sélection du rôle" class="w-full md:w-14rem" />
-
         </div>
       </div>
     </template>
     <template #content>
       <form @submit="saveUser">
         <div class="flex flex-row">
-
           <div class="flex-grow-1">
-            <h3>t'es la la colone des users ou pas?</h3>
                   <table v-if="userStore.user" class="w-full">
                     <tr>
                       <th class="bg-primary-900 p-2 text-left">ID</th>
@@ -47,6 +44,7 @@
                       <td class="p-2">{{userStore.user.profil_picture_url}}</td>
                     </tr>
                   </table>
+            <div v-else> Chargement en cours</div>
           </div>
         </div>
         <div class="mx-auto">
@@ -191,10 +189,10 @@ const {user} = toRefs(props);
 watch(user, () => {
   // v companystore -> companyStore.getUsers(user.value.company_code);
   selectedRole.value = user.value.user_role;
+  userStore.getUserById(user.value.id);
 });
 
 const active = ref(null);
-
 
 const loading = ref(false);
 

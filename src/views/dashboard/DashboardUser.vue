@@ -17,6 +17,7 @@
     <div class="flex-grow-1 h-min">
       <UserDetail :user="selectedUser" v-if="selectedUser"/>
     </div>
+
   </div>
 </template>
 <script setup lang="ts">
