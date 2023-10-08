@@ -144,10 +144,6 @@ const props = defineProps({
 
 const {ticket} = toRefs(props);
 
-watch(ticket, () => {
-  deviceStore.getDeviceById(ticket.value.code_machine);
-  userStore.getUserById(ticket.value.code_client);
-});
 
 const interventionStart = ref(null);
 const interventionEnd = ref(null);
@@ -165,7 +161,15 @@ const saveTicket = async () => {
 
 onMounted(() => {
   ticketStore.getTickets(authStore.user);
+  deviceStore.getDeviceById(ticket.value.code_machine);
+  userStore.getUserById(ticket.value.code_client);
 });
+
+watch(ticket, () => {
+  deviceStore.getDeviceById(ticket.value.code_machine);
+  userStore.getUserById(ticket.value.code_client);
+});
+
 </script>
 <style scoped>
 

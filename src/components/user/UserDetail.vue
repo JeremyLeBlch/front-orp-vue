@@ -204,7 +204,8 @@ const saveUser = async () => {
 
 onMounted(() => {
   userStore.getUsers(authStore.user);
-  console.log(userStore.user);
+  selectedRole.value = user.value.user_role;
+  userStore.getUserById(user.value.id);
 });
 
 const selectedRole = ref(null);
