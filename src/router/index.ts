@@ -6,6 +6,7 @@ import DashboardLayout from '@/views/dashboard/DashboardLayout.vue';
 import DashboardHome from '@/views/dashboard/DashboardHome.vue';
 import DashboardPlanning from "@/views/dashboard/DashboardPlanning.vue";
 import DashboardTicket from "@/views/dashboard/DashboardTicket.vue";
+import DashboardUser from "@/views/dashboard/DashboardUser.vue";
 
 export enum RouteName {
     home = "home",
@@ -65,6 +66,11 @@ const router = createRouter({
                     path: "tickets",
                     name: RouteName.allTickets,
                     component: DashboardTicket
+                },
+                {
+                    path: "manageUser",
+                    name: RouteName.manageUser,
+                    component: DashboardUser
                 },
             ]
         }

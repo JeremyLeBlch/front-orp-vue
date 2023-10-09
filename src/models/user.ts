@@ -5,7 +5,7 @@ export default class User {
     email: string;
     address: string;
     profil_picture_url: string;
-    user_role: string; // -> avant c'était UserRole
+    user_role: string; //
     company_code: number;
     active: boolean;
 

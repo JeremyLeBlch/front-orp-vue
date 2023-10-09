@@ -144,10 +144,6 @@ const props = defineProps({
 
 const {ticket} = toRefs(props);
 
-watch(ticket, () => {
-  deviceStore.getDeviceById(ticket.value.code_machine);
-  userStore.getUserById(ticket.value.code_client);
-});
 
 const interventionStart = ref(null);
 const interventionEnd = ref(null);
@@ -162,10 +158,19 @@ const saveTicket = async () => {
   loading.value = false;
 };
 
-
+function refreshTicket (){
+  deviceStore.getDeviceById(ticket.value.code_machine);
+  userStore.getUserById(ticket.value.code_client);
+}
 onMounted(() => {
   ticketStore.getTickets(authStore.user);
+  refreshTicket();
 });
+
+watch(ticket, () => {
+  refreshTicket();
+});
+
 </script>
 <style scoped>
 
