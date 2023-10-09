@@ -8,10 +8,11 @@ export const useUserStore = defineStore("user", () => {
     const users = ref<User[]>([]);
     const user = ref<User>(null);
     const userRoles = ref<string[]>([]);
+    const technicians = ref<User[]>([]);
 
     const getUsers = async (user: User) => {
         users.value = await userDao.getUsers(user);
-        userRoles.value = users.value.map((u) => u.user_role);
+        userRoles.value = users.value.map(u => u.user_role);
     };
 
     const getUserById = async (id: number) => {
@@ -19,11 +20,17 @@ export const useUserStore = defineStore("user", () => {
         user.value = await userDao.getUserById(id);
     };
 
+    const getAllTechnicians = async () => {
+        technicians.value = await userDao.getAllTechnicians();
+    };
+
     return {
         getUsers,
         users,
         userRoles,
         getUserById,
-        user
+        user,
+        getAllTechnicians,
+        technicians
     };
 });

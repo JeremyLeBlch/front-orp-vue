@@ -65,7 +65,6 @@ import Device from "@/models/device";
 const authStore = useAuthStore();
 const deviceStore = useDeviceStore();
 
-
 const props = defineProps({
   device : {
     type: Device,
@@ -74,16 +73,17 @@ const props = defineProps({
 });
 
 const {device} = toRefs(props);
-
-watch(device, () => {
-  deviceStore.getDeviceById(device.value.engine_type);
-  deviceStore.getDeviceById(device.value.id);
-});
-
+const loading = ref(false);
 // const interventionStart = ref(null);
 // const interventionEnd = ref(null);
 
-const loading = ref(false);
+onMounted(() => {
+  refreshParc();
+});
+
+watch(device, () => {
+  refreshParc();
+});
 
 const saveDevice = async () => {
   loading.value = true;
@@ -91,10 +91,9 @@ const saveDevice = async () => {
   loading.value = false;
 };
 
-
-onMounted(() => {
-  deviceStore.getDevices();
-});
+function refreshParc () {
+  deviceStore.getDeviceById(device.value.id);
+}
 </script>
 <style scoped>
 

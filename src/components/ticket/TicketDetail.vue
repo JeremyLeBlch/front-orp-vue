@@ -104,8 +104,8 @@
           <Dropdown
               id="technician"
               v-model="ticket.code_technician"
-              optionLabel="label"
-              optionValue="value"
+              :optionLabel="(technician) => technician.fullName()"
+              optionValue="id"
               :options="tabTechnicians"/>
         </div>
 
@@ -121,7 +121,7 @@
   </Card>
 </template>
 <script setup lang="ts">
-import {onMounted, ref, toRefs, watch} from 'vue';
+import {computed, onMounted, ref, toRefs, watch} from 'vue';
 import {useTicketStore} from "@/stores/ticket-store";
 import {useDeviceStore} from "@/stores/device-store";
 import {useAuthStore} from "@/stores/auth-store";
@@ -144,13 +144,20 @@ const props = defineProps({
 
 const {ticket} = toRefs(props);
 
-
 const interventionStart = ref(null);
 const interventionEnd = ref(null);
-
-const tabTechnicians = ref(Array.from({length: 100}, (_, i) => ({label: `Technicien #${i}`, value: i})));
-
+const tabTechnicians = computed(() => userStore.technicians);
 const loading = ref(false);
+
+onMounted(() => {
+  ticketStore.getTickets(authStore.user);
+  userStore.getAllTechnicians();
+  refreshTicket();
+});
+
+watch(ticket, () => {
+  refreshTicket();
+});
 
 const saveTicket = async () => {
   loading.value = true;
@@ -162,14 +169,6 @@ function refreshTicket (){
   deviceStore.getDeviceById(ticket.value.code_machine);
   userStore.getUserById(ticket.value.code_client);
 }
-onMounted(() => {
-  ticketStore.getTickets(authStore.user);
-  refreshTicket();
-});
-
-watch(ticket, () => {
-  refreshTicket();
-});
 
 </script>
 <style scoped>
