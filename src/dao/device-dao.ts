@@ -6,6 +6,7 @@ import {envUtils} from "@/config/env-utils";
  */
 
 export const deviceDao = {
+
     getDevices: async (): Promise<Device[]> => {
         const response = await fetch(`${envUtils.apiUrl}/api/device`, {
             method: 'GET',
