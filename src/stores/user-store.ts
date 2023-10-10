@@ -24,6 +24,11 @@ export const useUserStore = defineStore("user", () => {
         technicians.value = await userDao.getAllTechnicians();
     };
 
+    const createUser = async () => {
+
+
+    }
+
     return {
         getUsers,
         users,

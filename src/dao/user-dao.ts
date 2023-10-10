@@ -34,5 +34,25 @@ export const userDao = {
 
         const jsonData: User[] = await response.json();
         return jsonData.map(userJson => new User(userJson));
+    },
+
+    createUser: async (user: User): Promise<User> => {
+        if (!user.isAdmin()) {
+            throw new Error('Vous n\'êtes pas autorisé à créer un utilisateur.');
+        }
+
+        const response = await fetch(envUtils.apiUrl + '/api/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la création de l\'utilisateur');
+        }
+
+        return await response.json();
     }
 }
