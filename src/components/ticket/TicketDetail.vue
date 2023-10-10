@@ -159,11 +159,9 @@ watch(ticket, () => {
   refreshTicket();
 });
 
-const saveTicket = async () => {
-  loading.value = true;
-  // await ticketStore.updateTicket(ticket.value);
-  loading.value = false;
-};
+async function saveTicket () {
+  await ticketStore.updateTicket(ticket.value.id, ticket.value);
+}
 
 function refreshTicket (){
   deviceStore.getDeviceById(ticket.value.code_machine);
