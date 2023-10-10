@@ -9,10 +9,6 @@
           </template>
         </Column>
       </DataTable>
-      <DataTable :value="deviceStore.devices" @row-click="onRowSelect">
-        <Column field="id" header="ID" class="border-solid"/>
-        <Column field="engine_type" header="Type d'engin"/>
-      </DataTable>
     </div>
     <div class="flex-grow-1 h-min">
       <TicketDetail :ticket="selectedTicket" v-if="selectedTicket"/>

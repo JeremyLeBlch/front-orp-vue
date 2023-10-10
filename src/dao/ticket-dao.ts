@@ -43,6 +43,16 @@ export const ticketDao = {
 
         const jsonData = await response.json();
         return new Ticket(jsonData);
+    },
+    updateTicket: async (ticketId: number, updatedData: Partial<Ticket>): Promise<Ticket> => {
+        const response = await fetch(`${envUtils.apiUrl}/api/tickets/${ticketId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        });
+        return await response.json();
     }
 };
 

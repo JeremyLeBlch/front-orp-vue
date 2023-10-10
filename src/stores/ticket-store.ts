@@ -15,11 +15,15 @@ export const useTicketStore = defineStore("ticket", () => {
     const getTicketId = async (id: number) => {
         ticket.value = await ticketDao.getTicketId(id);
     };
+    const updateTicket = async (id: number, formTicket : Partial<Ticket>) => {
+        ticket.value = await ticketDao.updateTicket(id, formTicket);
+    };
 
     return {
         getTickets,
         tickets,
         getTicketId,
-        ticket
+        ticket,
+        updateTicket,
     };
 });
