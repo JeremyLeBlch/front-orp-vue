@@ -26,6 +26,9 @@ export const useUserStore = defineStore("user", () => {
 
     const createUser = async () => {
 
+    }
+
+    const saveUser = async (user: User) => {
 
     }
 
@@ -36,6 +39,7 @@ export const useUserStore = defineStore("user", () => {
         getUserById,
         user,
         getAllTechnicians,
-        technicians
+        technicians,
+        saveUser
     };
 });

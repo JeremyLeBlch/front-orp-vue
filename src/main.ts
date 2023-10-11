@@ -29,6 +29,7 @@ import Calendar from 'primevue/calendar';
 import Divider from 'primevue/divider';
 import Image from 'primevue/image';
 import FileUpload from 'primevue/fileupload';
+import ProgressSpinner from "primevue/progressspinner";
 
 
 const app = createApp(App);
@@ -56,6 +57,7 @@ app.component('Calendar', Calendar);
 app.component("Divider", Divider);
 app.component("Image", Image);
 app.component("FileUpload", FileUpload);
+app.component("ProgressSpinner", ProgressSpinner);
 
 
 // start
