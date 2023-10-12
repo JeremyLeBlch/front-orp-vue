@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row gap-4">
     <div class="left-panel">
-      <DataTable :value="ticketStore.tickets" @row-click="onRowSelect">
+      <DataTable :value="ticketSort" @row-click="onRowSelect">
         <Column field="id" header="ID" class="border-solid"/>
         <Column field="status" header="Status">
           <template #body="{ data }">
@@ -16,7 +16,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import {useTicketStore} from "@/stores/ticket-store";
 import {useDeviceStore} from "@/stores/device-store";
 import {useAuthStore} from "@/stores/auth-store";
@@ -33,6 +33,12 @@ const selectedTicket = ref<Ticket>(null);
 const onRowSelect = (event) => {
   selectedTicket.value = event.data;
 };
+
+const ticketSort = computed(() => {
+  const sortedTickets = ticketStore.tickets.sort((a, b) => a.id - b.id);
+  return sortedTickets;
+});
+
 
 onMounted(() => {
   ticketStore.getTickets(authStore.user);
