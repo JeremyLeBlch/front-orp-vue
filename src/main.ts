@@ -30,6 +30,7 @@ import Divider from 'primevue/divider';
 import Image from 'primevue/image';
 import FileUpload from 'primevue/fileupload';
 import ProgressSpinner from "primevue/progressspinner";
+import Chart from 'primevue/chart';
 
 
 const app = createApp(App);
@@ -48,7 +49,7 @@ app.component("DataTable", DataTable);
 app.component("Column", Column);
 app.component("Textarea", Textarea);
 app.component("Rating", Rating);
-app.component("TreeSelect",TreeSelect)
+app.component("TreeSelect",TreeSelect);
 app.component("Listbox", Listbox);
 app.component("Dropdown", Dropdown);
 app.component('Card', Card);
@@ -58,6 +59,7 @@ app.component("Divider", Divider);
 app.component("Image", Image);
 app.component("FileUpload", FileUpload);
 app.component("ProgressSpinner", ProgressSpinner);
+app.component('Chart', Chart);
 
 
 // start
