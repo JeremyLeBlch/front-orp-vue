@@ -23,23 +23,23 @@
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Type</th>
-                <td class="p-2"><InputText v-model="deviceStore.device.engine_type" class="col-4"/></td>
+                <td class="p-2"><InputText v-model="device.engine_type" class="col-4"/></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Marque</th>
-                <td class="p-2"><InputText v-model="deviceStore.device.brand" class="col-4"/></td>
+                <td class="p-2"><InputText v-model="device.brand" class="col-4"/></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Modèle</th>
-                <td class="p-2"><InputText v-model="deviceStore.device.model" class="col-4"/></td>
+                <td class="p-2"><InputText v-model="device.model" class="col-4"/></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Numéro de Série</th>
-                <td class="p-2"><InputText v-model="deviceStore.device.serial_number" class="col-4" /></td>
+                <td class="p-2"><InputText v-model="device.serial_number" class="col-4" /></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Référence client</th>
-                <td class="p-2"><InputText v-model="deviceStore.device.client_reference_number" class="col-4" /></td>
+                <td class="p-2"><InputText v-model="device.client_reference_number" class="col-4" /></td>
               </tr>
             </table>
             <div v-else> Chargement en cours</div>
@@ -59,10 +59,8 @@
 <script setup lang="ts">
 import {onMounted, ref, toRefs, watch} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
-import {useAuthStore} from "@/stores/auth-store";
 import Device from "@/models/device";
 
-const authStore = useAuthStore();
 const deviceStore = useDeviceStore();
 
 const props = defineProps({
@@ -85,9 +83,9 @@ watch(device, () => {
   refreshParc();
 });
 
-const saveDevice = async () => {
+const saveDevice = async () =>{
   loading.value = true;
-  // await ticketStore.updateTicket(ticket.value);
+  await deviceStore.updateDevice(device.value.id, device.value);
   loading.value = false;
 };
 
@@ -95,6 +93,4 @@ function refreshParc () {
   deviceStore.getDeviceById(device.value.id);
 }
 </script>
-<style scoped>
 
-</style>
