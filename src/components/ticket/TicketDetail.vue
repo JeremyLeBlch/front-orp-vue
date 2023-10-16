@@ -21,23 +21,23 @@
             <table v-if="deviceStore.device" class="w-full">
               <tr>
                 <th class="bg-primary-900 p-2 text-left">ID</th>
-                <td class="p-2">{{deviceStore.device.id}}</td>
+                <td class="p-2">{{ deviceStore.device.id }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Type</th>
-                <td class="p-2">{{deviceStore.device.engine_type}}</td>
+                <td class="p-2">{{ deviceStore.device.engine_type }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Marque</th>
-                <td class="p-2">{{deviceStore.device.brand}}</td>
+                <td class="p-2">{{ deviceStore.device.brand }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Modèle</th>
-                <td class="p-2">{{deviceStore.device.model}}</td>
+                <td class="p-2">{{ deviceStore.device.model }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Référence client</th>
-                <td class="p-2">{{deviceStore.device.client_reference_number}}</td>
+                <td class="p-2">{{ deviceStore.device.client_reference_number }}</td>
               </tr>
             </table>
             <div v-else class="text-gray-500">Chargement en cours...</div>
@@ -49,30 +49,30 @@
             <table v-if="userStore.user">
               <tr>
                 <th class="bg-primary-900 p-2 text-left">ID</th>
-                <td class="p-2">{{userStore.user.id}}</td>
+                <td class="p-2">{{ userStore.user.id }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Nom</th>
-                <td class="p-2">{{userStore.user.last_name}}</td>
+                <td class="p-2">{{ userStore.user.last_name }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Prénom</th>
-                <td class="p-2">{{userStore.user.first_name}}</td>
+                <td class="p-2">{{ userStore.user.first_name }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Email</th>
-                <td class="p-2">{{userStore.user.email}}</td>
+                <td class="p-2">{{ userStore.user.email }}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Adresse</th>
-                <td class="p-2">{{userStore.user.address}}</td>
+                <td class="p-2">{{ userStore.user.address }}</td>
               </tr>
             </table>
             <div v-else class="text-gray-500">Chargement en cours...</div>
           </div>
         </div>
 
-        <Divider />
+        <Divider/>
 
         <h3>Informations</h3>
         <div>
@@ -84,7 +84,7 @@
           <InputText v-model="ticket.location" placeholder="Adresse" id="address" class="w-full"/>
         </div>
 
-        <Divider />
+        <Divider/>
 
         <h3>Intervention</h3>
         <div class="flex flex-row">
@@ -97,23 +97,27 @@
             <Calendar id="calendar-24h" v-model="interventionEnd" showTime hourFormat="24"/>
           </div>
         </div>
-
-        <h3>Technicien</h3>
-        <div>
-          <label for="technician" class="p-2 block">Technicien affecté</label>
-          <Dropdown
-              id="technician"
-              v-model="ticket.code_technician"
-              :optionLabel="(technician) => technician.fullName()"
-              optionValue="id"
-              :options="tabTechnicians"/>
+        <div class="card">
+          <h3>Technicien</h3>
+          <div>
+            <label for="technician" class="p-2 block">Technicien affecté</label>
+            <Dropdown
+                id="technician"
+                v-model="ticket.code_technician"
+                :optionLabel="(technician) => technician.fullName()"
+                optionValue="id"
+                :options="tabTechnicians"/>
         </div>
-
-        <div class="mx-auto">
-          <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
-                  class="m-4" severity="success"/>
-          <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"/>
-          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
+          <h3>Statut</h3>
+          <div>
+            <Dropdown v-model="selectedTicketStatus" :options="status" optionLabel="name" optionValue="code" placeholder="Statut du ticket" class="md:w-14rem" />
+          </div>
+          <div class="mx-auto">
+            <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
+                    class="m-4" severity="success"/>
+            <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"/>
+            <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
+          </div>
         </div>
 
       </form>
@@ -136,7 +140,7 @@ const deviceStore = useDeviceStore();
 const userStore = useUserStore();
 
 const props = defineProps({
-  ticket : {
+  ticket: {
     type: Ticket,
     required: true
   }
@@ -149,6 +153,13 @@ const interventionEnd = ref(null);
 const tabTechnicians = computed(() => userStore.technicians);
 const loading = ref(false);
 
+const selectedTicketStatus = ref();
+const status = ref([
+  {name: 'Ouvert', code: 'open'},
+  {name: 'En cours', code: 'in_progress'},
+  {name: 'Fermé', code: 'closed'},
+]);
+
 onMounted(() => {
   ticketStore.getTickets(authStore.user);
   userStore.getAllTechnicians();
@@ -159,11 +170,11 @@ watch(ticket, () => {
   refreshTicket();
 });
 
-async function saveTicket () {
+async function saveTicket() {
   await ticketStore.updateTicket(ticket.value.id, ticket.value);
 }
 
-function refreshTicket (){
+function refreshTicket() {
   deviceStore.getDeviceById(ticket.value.code_machine);
   userStore.getUserById(ticket.value.code_client);
 }
