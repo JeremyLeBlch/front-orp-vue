@@ -26,11 +26,11 @@ export const useUserStore = defineStore("user", () => {
 
     const createUser = async () => {
 
-    }
+    };
 
-    const saveUser = async (user: User) => {
-
-    }
+    const saveUser = async (id: number, formUser : Partial<User>) => {
+        user.value = await userDao.updateUser(id, formUser);
+    };
 
     return {
         getUsers,

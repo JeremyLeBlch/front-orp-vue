@@ -1,5 +1,6 @@
 import User from "@/models/user";
 import {envUtils} from "@/config/env-utils";
+import Ticket from "@/models/ticket";
 
 export const userDao = {
 
@@ -53,6 +54,17 @@ export const userDao = {
             throw new Error('Erreur lors de la création de l\'utilisateur');
         }
 
+        return await response.json();
+    },
+
+    updateUser: async (userId: number, updatedData: Partial<User>): Promise<User> => {
+        const response = await fetch(`${envUtils.apiUrl}/api/user/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedData)
+        });
         return await response.json();
     }
 }

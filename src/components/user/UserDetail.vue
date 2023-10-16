@@ -115,7 +115,7 @@ const showImageUrlInput = ref(false);
 
 const saveUser = async () => {
   loading.value = true;
-  await userStore.saveUser(user.value);
+  await userStore.saveUser(user.value.id, user.value);
   loading.value = false;
 };
 
