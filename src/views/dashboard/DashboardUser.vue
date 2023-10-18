@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row gap-4">
     <div class="left-panel">
-      <DataTable :value="userStore.users" @row-click="onRowSelect">
+      <DataTable :value="userSort" @row-click="onRowSelect">
         <Column field="id" header="ID" class="border-solid"/>
         <Column field="fullName()" header="Nom d'utilisateur">
           <template #body="{data}">
@@ -17,7 +17,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import {useUserStore} from "@/stores/user-store";
 import {useAuthStore} from "@/stores/auth-store";
 import User from "@/models/user";
@@ -32,6 +32,11 @@ const selectedUser = ref<User>(null);
 const onRowSelect = (event) => {
   selectedUser.value = event.data;
 };
+
+const userSort = computed(() => {
+  const sortedUsers = userStore.users.sort((a, b) => a.id - b.id);
+  return sortedUsers;
+});
 
 onMounted(() => {
   userStore.getUsers(authStore.user);

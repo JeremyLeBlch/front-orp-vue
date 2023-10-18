@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row gap-4">
     <div class="left-panel">
-      <DataTable :value="deviceStore.devices" @row-click="onRowSelect">
+      <DataTable :value="deviceSort" @row-click="onRowSelect">
         <Column field="id" header="ID" class="border-solid"/>
         <Column field="deviceName()" header="Nom de la machine">
           <template #body="{data}">
@@ -17,7 +17,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
 import Device from "@/models/device";
 import DeviceDetail from "@/components/parc/ParcDetail.vue";
@@ -30,6 +30,11 @@ const selectedDevice = ref<Device>(null);
 const onRowSelect = (event) => {
   selectedDevice.value = event.data;
 };
+
+const deviceSort = computed(() => {
+  const sortedDevices = deviceStore.devices.sort((a, b) => a.id - b.id);
+  return sortedDevices;
+});
 
 onMounted(() => {
   deviceStore.getDevices();
