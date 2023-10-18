@@ -25,7 +25,6 @@
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Entreprise</th>
                 <td class="p-2">
-                  <!--InputText v-model="user.company_code" class="col-4"/-->
                   <CompanySelector v-model="user.company_code"  class="col-4"/>
                 </td>
               </tr>

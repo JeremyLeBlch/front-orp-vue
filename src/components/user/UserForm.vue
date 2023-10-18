@@ -9,7 +9,7 @@
           </tr>
           <tr>
             <th class="bg-primary-900 p-2 text-left">Entreprise</th>
-            <td class="p-2"><InputText v-model="userStore.user.company_code" class="col-4"/></td>
+            <td class="p-2"><InputText v-model="user.company_code" class="col-4"/></td>
           </tr>
           <tr>
             <th class="bg-primary-900 p-2 text-left">Prénom</th>

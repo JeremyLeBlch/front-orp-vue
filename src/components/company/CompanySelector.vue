@@ -4,7 +4,7 @@
             option-label="name"
             option-value="id"
             placeholder="Sélection de l'entreprise"
-            class="w-full" />
+            class="col-4" />
 </template>
 <script setup lang="ts">
 import {computed, onMounted} from "vue";
