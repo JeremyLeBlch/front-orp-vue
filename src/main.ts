@@ -31,6 +31,7 @@ import Image from 'primevue/image';
 import FileUpload from 'primevue/fileupload';
 import ProgressSpinner from "primevue/progressspinner";
 import Chart from 'primevue/chart';
+import Dialog from 'primevue/dialog';
 
 
 const app = createApp(App);
@@ -60,6 +61,7 @@ app.component("Image", Image);
 app.component("FileUpload", FileUpload);
 app.component("ProgressSpinner", ProgressSpinner);
 app.component('Chart', Chart);
+app.component('Dialog', Dialog);
 
 
 // start

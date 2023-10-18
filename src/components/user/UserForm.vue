@@ -2,34 +2,31 @@
   <form @submit="saveUser">
     <div class="flex flex-row">
       <div class="flex-grow-1">
-        <table v-if="userStore.user" class="w-full">
-          <tr>
-            <th class="bg-primary-900 p-2 text-left">ID</th>
-            <td class="p-2">{{userStore.user.id}}</td>
-          </tr>
+        <table  class="w-full">
+
           <tr>
             <th class="bg-primary-900 p-2 text-left">Entreprise</th>
-            <td class="p-2"><InputText v-model="user.company_code" class="col-4"/></td>
+            <td class="p-2"><InputText  class="col-4"/></td>
           </tr>
           <tr>
             <th class="bg-primary-900 p-2 text-left">Prénom</th>
-            <td class="p-2"><InputText v-model="userStore.user.first_name" class="col-4" /></td>
+            <td class="p-2"><InputText  class="col-4" /></td>
           </tr>
           <tr>
             <th class="bg-primary-900 p-2 text-left">Nom</th>
-            <td class="p-2"><InputText v-model="userStore.user.last_name" class="col-4" /></td>
+            <td class="p-2"><InputText  class="col-4" /></td>
           </tr>
           <tr>
             <th class="bg-primary-900 p-2 text-left">Email</th>
-            <td class="p-2"><InputText v-model="userStore.user.email" class="col-4"/></td>
+            <td class="p-2"><InputText  class="col-4"/></td>
           </tr>
           <tr>
             <th class="bg-primary-900 p-2 text-left">Adresse</th>
-            <td class="p-2"><InputText v-model="userStore.user.address" class="col-4" /></td>
+            <td class="p-2"><InputText  class="col-4" /></td>
           </tr>
           <tr>
             <th class="bg-primary-900 p-2 text-left">Photo de profil</th>
-            <td class="p-2"><img :src="userStore.user.profil_picture_url" alt="Photo de profil" width="250" />
+            <td class="p-2">
               <Button type="button" label="Modifier l'URL" @click="toggleImageUrlInput" class="p-button-success m-2" />
               <div v-if="showImageUrlInput" class="p-inputgroup">
                           <span class="p-inputgroup-addon">
@@ -52,7 +49,7 @@
             </td>
           </tr>
         </table>
-        <div v-else> Chargement en cours</div>
+
       </div>
     </div>
     <div class="mx-auto">
@@ -68,12 +65,12 @@
 
 import {onMounted, ref, toRefs, watch} from 'vue';
 import {useUserStore} from "@/stores/user-store";
-// v pour companystore
+
 import {useAuthStore} from "@/stores/auth-store";
 
 import User from "@/models/user";
 
-
+const emit = defineEmits(["success"])
 
 const authStore = useAuthStore();
 const userStore = useUserStore();
@@ -103,6 +100,7 @@ const loading = ref(false);
 
 const saveUser = async () => {
   loading.value = true;
+  emit("success")
   loading.value = false;
 };
 
