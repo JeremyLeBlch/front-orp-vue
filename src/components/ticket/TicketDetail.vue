@@ -89,6 +89,7 @@
         <h3>Intervention</h3>
         <div class="flex flex-row">
           <div class="mr-2">
+            {{ticket.intervention_start}}
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Début d'intervention </label>
             <Calendar id="calendar-24h" v-model="interventionStart" showTime hourFormat="24"/>
           </div>
@@ -110,7 +111,7 @@
         </div>
           <h3>Statut</h3>
           <div>
-            <Dropdown v-model="selectedTicketStatus" :options="status" optionLabel="name" optionValue="code" placeholder="Statut du ticket" class="md:w-14rem" />
+            <Dropdown v-model="ticket.status" :options="status" optionLabel="name" optionValue="code" placeholder="Statut du ticket" class="md:w-14rem" />
           </div>
           <div class="mx-auto">
             <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
@@ -153,7 +154,6 @@ const interventionEnd = ref(null);
 const tabTechnicians = computed(() => userStore.technicians);
 const loading = ref(false);
 
-const selectedTicketStatus = ref();
 const status = ref([
   {name: 'Ouvert', code: 'open'},
   {name: 'En cours', code: 'in_progress'},
@@ -161,22 +161,37 @@ const status = ref([
 ]);
 
 onMounted(() => {
-  ticketStore.getTickets(authStore.user);
   userStore.getAllTechnicians();
-  refreshTicket();
+  refreshExtra();
 });
 
 watch(ticket, () => {
-  refreshTicket();
+  refreshExtra();
 });
 
+function transformDate(){
+  if (ticket.value.intervention_start){
+    interventionStart.value = new Date(ticket.value.intervention_start);
+  }
+  if (ticket.value.intervention_end){
+    interventionEnd.value = new Date(ticket.value.intervention_end);
+  }
+}
 async function saveTicket() {
+  if (interventionStart.value){
+    ticket.value.intervention_start = interventionStart.value.toISOString();
+  }
+  if (interventionEnd.value){
+    ticket.value.intervention_end = interventionEnd.value.toISOString();
+  }
   await ticketStore.updateTicket(ticket.value.id, ticket.value);
+  await ticketStore.getTickets(authStore.user);
 }
 
-function refreshTicket() {
+function refreshExtra() {
   deviceStore.getDeviceById(ticket.value.code_machine);
   userStore.getUserById(ticket.value.code_client);
+  transformDate();
 }
 
 </script>
