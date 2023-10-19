@@ -71,9 +71,13 @@
 
 <script>
 import {useUserStore} from "@/stores/user-store";
-import { ref } from "vue";
-import User from "@/models/user";
+import {onMounted, ref, toRefs, watch} from 'vue';
 import UserRoleSelector from "@/components/user/UserRoleSelector.vue";
+import {useAuthStore} from "@/stores/auth-store";
+import User from "@/models/user";
+// const authStore = useAuthStore();
+// const userStore = useUserStore();
+
 
 
 export default {
@@ -112,6 +116,15 @@ export default {
     },
   },
 };
+// const saveUser = async () => {
+//   loading.value = true;
+//   emit("success")
+//   loading.value = false;
+// };
+
+onMounted(() => {
+  userStore.getUsers(authStore.user);
+});
 </script>
 
 

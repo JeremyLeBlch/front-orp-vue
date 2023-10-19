@@ -38,6 +38,9 @@ export const userDao = {
     },
 
     createUser: async (formUser: Partial<User>): Promise<User> => {
+        // createUser: async (user: User): Promise<User> => {
+        //     if (!user.isAdmin()) {
+
         if (formUser.isAdmin()) {
             throw new Error("Vous n'êtes pas autorisé à créer un utilisateur.");
         }
