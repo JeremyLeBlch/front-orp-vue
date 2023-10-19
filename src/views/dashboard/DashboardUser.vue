@@ -13,10 +13,10 @@
     <div class="flex-grow-1 h-min">
       <UserDetail :user="selectedUser" v-if="selectedUser"/>
 <!--      TODO-->
-<!--      <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" />-->
-<!--      <Dialog v-model:visible="visible" modal header="Header" :style="{ width: '50vw' }">-->
-<!--        <UserForm @success="onUserCreated" />-->
-<!--      </Dialog>-->
+      <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" />
+      <Dialog v-model:visible="visible" modal header="Créer un nouvel utilisateur" :style="{ width: '50vw' }">
+        <UserForm @cancel="closeForm" @success="onUserCreated" />
+      </Dialog>
     </div>
 
   </div>
@@ -35,6 +35,10 @@ const selectedUser = ref<User>(null);
 const visible = ref(false);
 const onRowSelect = (event) => {
   selectedUser.value = event.data;
+};
+
+const closeForm = () => {
+  visible.value = false;
 };
 
 const onUserCreated = () => {

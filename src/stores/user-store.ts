@@ -24,8 +24,8 @@ export const useUserStore = defineStore("user", () => {
         technicians.value = await userDao.getAllTechnicians();
     };
 
-    const createUser = async () => {
-
+    const createUser = async (formUser : Partial<User>) => {
+        user.value = await userDao.createUser(formUser);
     };
 
     const saveUser = async (id: number, formUser : Partial<User>) => {
@@ -40,6 +40,7 @@ export const useUserStore = defineStore("user", () => {
         user,
         getAllTechnicians,
         technicians,
-        saveUser
+        saveUser,
+        createUser
     };
 });

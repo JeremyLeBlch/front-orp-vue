@@ -1,8 +1,9 @@
 export default class User {
-    id: number;
+    id?: number;
     last_name: string;
     first_name: string;
     email: string;
+    password: string;
     address: string;
     profil_picture_url: string;
     user_role: string; //
@@ -14,6 +15,7 @@ export default class User {
         this.last_name = data.last_name;
         this.first_name = data.first_name;
         this.email = data.email;
+        this.password = data.password;
         this.address = data.address;
         this.profil_picture_url = data.profil_picture_url;
         this.user_role = data.user_role;
