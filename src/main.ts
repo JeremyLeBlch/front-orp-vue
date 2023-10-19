@@ -34,6 +34,7 @@ import Chart from 'primevue/chart';
 import Dialog from 'primevue/dialog';
 
 
+
 const app = createApp(App);
 app.use(createPinia());
 app.use(router);

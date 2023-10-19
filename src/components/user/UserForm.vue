@@ -31,7 +31,7 @@
             <tr>
               <th class="bg-primary-900 p-2 text-left">Password</th>
               <td class="p-2">
-                <InputText v-model="formUser.password" class="col-9" required />
+                <Password v-model="formUser.password" class="col-9" required toggleMask />
               </td>
             </tr>
             <tr>
