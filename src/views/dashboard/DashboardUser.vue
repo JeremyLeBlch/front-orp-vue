@@ -12,7 +12,6 @@
     </div>
     <div class="flex-grow-1 h-min">
       <UserDetail :user="selectedUser" v-if="selectedUser"/>
-<!--      TODO-->
       <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" />
       <Dialog v-model:visible="visible" modal header="Créer un nouvel utilisateur" :style="{ width: '50vw' }">
         <UserForm @cancel="closeForm" @success="onUserCreated" />
@@ -42,7 +41,7 @@ const closeForm = () => {
 };
 
 const onUserCreated = () => {
-  visible.value = false;
+  closeForm();
 };
 
 const userSort = computed(() => {

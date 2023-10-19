@@ -75,56 +75,60 @@ import {onMounted, ref, toRefs, watch} from 'vue';
 import UserRoleSelector from "@/components/user/UserRoleSelector.vue";
 import {useAuthStore} from "@/stores/auth-store";
 import User from "@/models/user";
-// const authStore = useAuthStore();
-// const userStore = useUserStore();
-
-
 
 export default {
   setup(props, { emit }) {
     const cancelForm = () => {
       emit("cancel");
     };
-    return {
-      cancelForm,
-    };
-  },
-  data() {
-    return {
-      formUser: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        address: "",
-        password: "",
-        profil_picture_url: "",
-        user_role: "user",
-        company_code: null,
-      }
-    };
-  },
-  methods: {
-    createNewUser() {
-      this.userS.createUser(this.formUser)
+
+    const userStore = useUserStore();
+    const authStore = useAuthStore();
+
+    const formUser = ref({
+      first_name: "",
+      last_name: "",
+      email: "",
+      address: "",
+      password: "",
+      profil_picture_url: "",
+      user_role: "",
+      active:true
+    });
+
+    const createNewUser = () => {
+      userStore.createUser(formUser.value) // Utilisez formUser.value pour accéder aux données réactives
           .then(() => {
-            console.log("utilisateur creer")
+            console.log("utilisateur créé");
+            emit("success");
           })
           .catch((error) => {
             // Gérez les erreurs ici
             console.error("Erreur lors de la création de l'utilisateur : ", error);
           });
-    },
+    };
+
+    return {
+      cancelForm,
+      formUser,
+      createNewUser,
+    };
+  },
+
+  onMounted() {
+    userStore.getUsers(authStore.user);
   },
 };
+
+
+
+
 // const saveUser = async () => {
 //   loading.value = true;
 //   emit("success")
 //   loading.value = false;
 // };
 
-onMounted(() => {
-  userStore.getUsers(authStore.user);
-});
 </script>
 
 
