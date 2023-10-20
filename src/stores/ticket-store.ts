@@ -14,6 +14,7 @@ export const useTicketStore = defineStore("ticket", () => {
 
     const getTicketId = async (id: number) => {
         ticket.value = await ticketDao.getTicketId(id);
+        return ticket.value;
     };
     const updateTicket = async (id: number, formTicket : Partial<Ticket>) => {
         ticket.value = await ticketDao.updateTicket(id, formTicket);

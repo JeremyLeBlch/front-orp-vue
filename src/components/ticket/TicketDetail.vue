@@ -89,13 +89,12 @@
         <h3>Intervention</h3>
         <div class="flex flex-row">
           <div class="mr-2">
-            {{ticket.intervention_start}}
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Début d'intervention </label>
-            <Calendar id="calendar-24h" v-model="interventionStart" showTime hourFormat="24"/>
+            <Calendar id="calendar-24h" v-model="ticket.intervention_start" showTime hourFormat="24"/>
           </div>
           <div class="">
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Fin d'intervention </label>
-            <Calendar id="calendar-24h" v-model="interventionEnd" showTime hourFormat="24"/>
+            <Calendar id="calendar-24h" v-model="ticket.intervention_end" showTime hourFormat="24"/>
           </div>
         </div>
         <div class="card">
@@ -116,12 +115,16 @@
           <div class="mx-auto">
             <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
                     class="m-4" severity="success"/>
-            <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"/>
+            <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"  @click="resetTicket(ticket.id)"/>
             <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
           </div>
         </div>
-
       </form>
+      <Dialog v-model:visible="visible" modal header="Sauvegarde" :style="{ width: '50vw' }">
+        <p>
+          Le ticket a bien été enregistré !
+        </p>
+      </Dialog>
     </template>
   </Card>
 </template>
@@ -149,10 +152,9 @@ const props = defineProps({
 
 const {ticket} = toRefs(props);
 
-const interventionStart = ref(null);
-const interventionEnd = ref(null);
 const tabTechnicians = computed(() => userStore.technicians);
 const loading = ref(false);
+const visible = ref(false);
 
 const status = ref([
   {name: 'Ouvert', code: 'open'},
@@ -171,22 +173,39 @@ watch(ticket, () => {
 
 function transformDate(){
   if (ticket.value.intervention_start){
-    interventionStart.value = new Date(ticket.value.intervention_start);
+    ticket.value.intervention_start = new Date(ticket.value.intervention_start);
   }
   if (ticket.value.intervention_end){
-    interventionEnd.value = new Date(ticket.value.intervention_end);
+    ticket.value.intervention_end = new Date(ticket.value.intervention_end);
   }
 }
 async function saveTicket() {
-  if (interventionStart.value){
-    ticket.value.intervention_start = interventionStart.value.toISOString();
+  if (ticket.value.intervention_start){
+    const dateStart = new Date(ticket.value.intervention_start );
+    dateStart.toISOString();
   }
-  if (interventionEnd.value){
-    ticket.value.intervention_end = interventionEnd.value.toISOString();
+  if (ticket.value.intervention_end){
+    const dateEnd = new Date(ticket.value.intervention_end );
+    dateEnd.toISOString();
   }
   await ticketStore.updateTicket(ticket.value.id, ticket.value);
   await ticketStore.getTickets(authStore.user);
+  visible.value = true;
 }
+
+async function resetTicket(idTicket : number){
+  const ticketFromStore = await ticketStore.getTicketId(idTicket);
+
+  ticket.value.comments = ticketFromStore.comments;
+  ticket.value.location = ticketFromStore.location;
+  ticket.value.intervention_start = ticketFromStore.intervention_start;
+  ticket.value.intervention_end = ticketFromStore.intervention_end;
+  ticket.value.status = ticketFromStore.status;
+  ticket.value.code_technician = ticketFromStore.code_technician;
+  ticket.value.emergency_degree = ticketFromStore.emergency_degree;
+  transformDate();
+}
+
 
 function refreshExtra() {
   deviceStore.getDeviceById(ticket.value.code_machine);
