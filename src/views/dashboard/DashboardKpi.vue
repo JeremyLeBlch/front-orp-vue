@@ -70,6 +70,7 @@ const chartOptionsYear = ref({
 
 const generateChartData = () => {
   if (kpiStore.kpis) {
+    console.log(kpiStore.kpis);
     // Calcul du total des tickets par année
     const totalTicketsByYear = kpiStore.kpis.reduce((acc, kpi) => {
       const year = kpi.year.toString();

@@ -12,6 +12,10 @@
     </div>
     <div class="flex-grow-1 h-min">
       <UserDetail :user="selectedUser" v-if="selectedUser"/>
+      <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" />
+      <Dialog v-model:visible="visible" modal header="Créer un nouvel utilisateur" :style="{ width: '50vw' }">
+        <UserForm @cancel="closeForm" @success="onUserCreated" />
+      </Dialog>
     </div>
 
   </div>
@@ -22,15 +26,22 @@ import {useUserStore} from "@/stores/user-store";
 import {useAuthStore} from "@/stores/auth-store";
 import User from "@/models/user";
 import UserDetail from "@/components/user/UserDetail.vue";
-
+import UserForm from "@/components/user/UserForm.vue";
 
 const authStore = useAuthStore();
 const userStore = useUserStore();
-
 const selectedUser = ref<User>(null);
-
+const visible = ref(false);
 const onRowSelect = (event) => {
   selectedUser.value = event.data;
+};
+
+const closeForm = () => {
+  visible.value = false;
+};
+
+const onUserCreated = () => {
+  closeForm();
 };
 
 const userSort = computed(() => {
