@@ -83,7 +83,7 @@
         <div class="mx-auto">
           <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveUser"
                   class="m-4" severity="success"/>
-          <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"/>
+          <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4" @click="cancelChanges"/>
           <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
         </div>
       </form>
@@ -111,6 +111,13 @@ const {user} = toRefs(props);
 const loading = ref(false);
 const newImageUrl = ref('');
 const showImageUrlInput = ref(false);
+
+const originalUser = ref(JSON.parse(JSON.stringify(user.value)));
+const cancelChanges = () => {
+  Object.assign(user.value, JSON.parse(JSON.stringify(originalUser.value)));
+  newImageUrl.value = '';
+  showImageUrlInput.value = false;
+};
 
 const saveUser = async () => {
   loading.value = true;
