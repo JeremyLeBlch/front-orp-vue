@@ -30,9 +30,10 @@ const deviceStore = useDeviceStore();
 
 const selectedTicket = ref<Ticket>(null);
 
-const onRowSelect = (event) => {
+const onRowSelect = (event : any) => {
   selectedTicket.value = event.data;
 };
+
 
 const ticketSort = computed(() => {
   const sortedTickets = ticketStore.tickets.sort((a, b) => a.id - b.id);

@@ -4,8 +4,8 @@ export default class Ticket {
     status: "open" | "closed" | "in_progress";
     comments: string;
     location: string; // ex: (-157.8117,-69.8013)
-    intervention_start: string; // iso date
-    intervention_end: string; // iso date
+    intervention_start: Date; // iso date
+    intervention_end: Date; // iso date
     created_at: string; // iso date
     modified_at: string; // iso date
     code_type: number;
