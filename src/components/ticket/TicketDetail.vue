@@ -203,6 +203,7 @@ async function resetTicket(idTicket : number){
   ticket.value.status = ticketFromStore.status;
   ticket.value.code_technician = ticketFromStore.code_technician;
   ticket.value.emergency_degree = ticketFromStore.emergency_degree;
+
   transformDate();
 }
 
