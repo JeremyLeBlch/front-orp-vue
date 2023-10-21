@@ -27,6 +27,10 @@ export default class User {
         return this.first_name + " " + this.last_name;
     }
 
+    public role(){
+        return this.user_role;
+    }
+
     public isUser() {
         return this.user_role === "user";
     }

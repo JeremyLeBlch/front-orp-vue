@@ -27,6 +27,13 @@ export const userDao = {
         });
         return new User(await response.json());
     },
+    deleteUser: async (userId: number): Promise<User> => {
+        const response = await fetch(`${envUtils.apiUrl}/api/user/${userId}`, {
+            method: 'DELETE',
+            headers: {'Content-Type' : 'application/json'}
+        });
+        return await response.json();
+    },
     getAllTechnicians : async (): Promise<User[]> => {
         const response = await fetch(envUtils.apiUrl + `/api/user/technician`, {
             method: 'GET',

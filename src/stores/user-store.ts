@@ -32,6 +32,11 @@ export const useUserStore = defineStore("user", () => {
         user.value = await userDao.updateUser(id, formUser);
     };
 
+    const deleteUser = async (id: number) => {
+        user.value = null;
+        user.value = await userDao.deleteUser(id);
+    };
+
     return {
         getUsers,
         users,
@@ -41,6 +46,7 @@ export const useUserStore = defineStore("user", () => {
         getAllTechnicians,
         technicians,
         saveUser,
-        createUser
+        createUser,
+        deleteUser
     };
 });

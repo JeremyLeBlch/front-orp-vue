@@ -84,7 +84,7 @@
           <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveUser"
                   class="m-4" severity="success"/>
           <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4" @click="cancelChanges"/>
-          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
+          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4" :loading="loading" @click="deleteUser"/>
         </div>
       </form>
     </template>
@@ -133,5 +133,9 @@ const updateProfilePicture = () => {
 
 const toggleImageUrlInput = () => {
   showImageUrlInput.value = !showImageUrlInput.value;
+};
+
+const deleteUser = async () => {
+  await userStore.deleteUser(user.value.id);
 };
 </script>
