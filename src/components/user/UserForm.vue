@@ -69,7 +69,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import {useUserStore} from "@/stores/user-store";
 import {onMounted, ref, toRefs, watch} from 'vue';
 import UserRoleSelector from "@/components/user/UserRoleSelector.vue";

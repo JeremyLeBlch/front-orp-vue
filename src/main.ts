@@ -32,6 +32,10 @@ import FileUpload from 'primevue/fileupload';
 import ProgressSpinner from "primevue/progressspinner";
 import Chart from 'primevue/chart';
 import Dialog from 'primevue/dialog';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmPopup from 'primevue/confirmpopup';
+
 
 const app = createApp(App);
 app.use(createPinia());
@@ -40,6 +44,7 @@ app.use(router);
 // prime imports
 app.use(PrimeVue);
 app.use(ToastService);
+app.use(ConfirmationService);
 app.component('Button', Button);
 app.component('InputText', InputText);
 app.component('Toast', Toast);
@@ -61,7 +66,8 @@ app.component("FileUpload", FileUpload);
 app.component("ProgressSpinner", ProgressSpinner);
 app.component('Chart', Chart);
 app.component('Dialog', Dialog);
-
+app.component('ConfirmDialog', ConfirmDialog);
+app.component('ConfirmPopup', ConfirmPopup);
 
 // start
 app.mount('#app');

@@ -97,6 +97,11 @@ import {useUserStore} from "@/stores/user-store";
 import UserRoleSelector from "@/components/user/UserRoleSelector.vue";
 import User from "@/models/user";
 import CompanySelector from "@/components/company/CompanySelector.vue";
+import { useConfirm } from "primevue/useconfirm";
+import { useToast } from "primevue/usetoast";
+
+const confirm = useConfirm();
+const toast = useToast();
 
 const userStore = useUserStore();
 

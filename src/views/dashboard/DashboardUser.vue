@@ -13,6 +13,7 @@
     <div class="flex-grow-1 h-min">
       <UserDetail :user="selectedUser" v-if="selectedUser"/>
       <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" />
+      <Toast />
       <Dialog v-model:visible="visible" modal header="Créer un nouvel utilisateur" :style="{ width: '50vw' }">
         <UserForm @cancel="closeForm" @success="onUserCreated" />
       </Dialog>
@@ -27,7 +28,9 @@ import {useAuthStore} from "@/stores/auth-store";
 import User from "@/models/user";
 import UserDetail from "@/components/user/UserDetail.vue";
 import UserForm from "@/components/user/UserForm.vue";
+import { useToast } from 'primevue/usetoast';
 
+const toast = useToast();
 const authStore = useAuthStore();
 const userStore = useUserStore();
 const selectedUser = ref<User>(null);
@@ -39,9 +42,12 @@ const onRowSelect = (event) => {
 const closeForm = () => {
   visible.value = false;
 };
-
+const show = () => {
+  toast.add({ severity: 'info', summary: 'Info', detail: 'Utilisateur créé avec succès', life: 3000 });
+};
 const onUserCreated = () => {
   closeForm();
+  show();
 };
 
 const userSort = computed(() => {
