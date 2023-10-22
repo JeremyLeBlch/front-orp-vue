@@ -15,11 +15,10 @@
       <form @submit="saveDevice">
         <div class="flex flex-row">
           <div class="flex-grow-1">
-            <h3>Machine</h3>
-            <table v-if="deviceStore.device" class="w-full">
+            <table class="w-full">
               <tr>
                 <th class="bg-primary-900 p-2 text-left">ID</th>
-                <td class="p-2">{{deviceStore.device.id}}</td>
+                <td class="p-2">{{device.id}}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Type</th>
@@ -38,18 +37,37 @@
                 <td class="p-2"><InputText v-model="device.serial_number" class="col-4" /></td>
               </tr>
               <tr>
+                <th class="bg-primary-900 p-2 text-left">Entreprise</th>
+                <td class="p-2">
+                  <CompanySelector v-model="device.code_owner"  class="col-4"/>
+                </td>
+              </tr>
+              <tr>
                 <th class="bg-primary-900 p-2 text-left">Référence client</th>
                 <td class="p-2"><InputText v-model="device.client_reference_number" class="col-4" /></td>
               </tr>
             </table>
-            <div v-else> Chargement en cours</div>
           </div>
         </div>
         <div class="mx-auto">
           <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveDevice"
                   class="m-4" severity="success"/>
-          <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"/>
-          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
+          <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4" @click="cancelChanges"/>
+          <Toast position="bottom-center" group="bc" @close="onClose">
+            <template #message="slotProps">
+              <div class="flex flex-column align-items-center" style="flex: 1">
+                <div class="text-center">
+                  <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                  <div class="font-bold text-xl my-3">{{ slotProps.message.summary }}</div>
+                </div>
+                <div class="flex gap-2">
+                  <Button severity="success" label="Yes" @click="onConfirm()"></Button>
+                  <Button severity="secondary" label="No" @click="onReject()"></Button>
+                </div>
+              </div>
+            </template>
+          </Toast>
+          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4" @click="showTemplate"/>
         </div>
 
       </form>
@@ -60,7 +78,11 @@
 import {onMounted, ref, toRefs, watch} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
 import Device from "@/models/device";
+import CompanySelector from "@/components/company/CompanySelector.vue";
+import { useToast } from "primevue/usetoast";
 
+const toast = useToast();
+const visible = ref(false)
 const deviceStore = useDeviceStore();
 
 const props = defineProps({
@@ -72,25 +94,44 @@ const props = defineProps({
 
 const {device} = toRefs(props);
 const loading = ref(false);
-// const interventionStart = ref(null);
-// const interventionEnd = ref(null);
 
-onMounted(() => {
-  refreshParc();
-});
+const originalDevice = ref(JSON.parse(JSON.stringify(device.value)));
+const cancelChanges = () => {
+  Object.assign(device.value, JSON.parse(JSON.stringify(originalDevice.value)));
+};
 
-watch(device, () => {
-  refreshParc();
-});
-
-const saveDevice = async () =>{
+const saveDevice = async () => {
   loading.value = true;
   await deviceStore.updateDevice(device.value.id, device.value);
   loading.value = false;
+  window.location.reload()
 };
 
-function refreshParc () {
-  deviceStore.getDeviceById(device.value.id);
+const deleteDevice = async () => {
+  await deviceStore.deleteDevice(device.value.id);
+};
+
+const showTemplate = () => {
+  if (!visible.value) {
+    toast.add({ severity: 'warn', summary: 'voules-vous supprimer cette machine?', detail: 'Proceed to confirm', group: 'bc' });
+    visible.value = true;
+  }
+};
+
+const onConfirm = () => {
+  toast.removeGroup('bc');
+  deleteDevice()
+  visible.value = false;
+  window.location.reload();
+}
+
+const onReject = () => {
+  toast.removeGroup('bc');
+  visible.value = false;
+}
+
+const onClose = () => {
+  visible.value = false;
 }
 </script>
 

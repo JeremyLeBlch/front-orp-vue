@@ -45,7 +45,6 @@ export const userDao = {
     },
 
     createUser: async (formUser: Partial<User>): Promise<User> => {
-        // createUser: async (user: User): Promise<User> => {
         const response = await fetch(envUtils.apiUrl + '/api/user', {
             method: 'POST',
             headers: {

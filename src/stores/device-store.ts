@@ -22,11 +22,22 @@ export const useDeviceStore = defineStore("device", () => {
         device.value = await deviceDao.updateDevice(id, formDevice);
     };
 
+    const createDevice = async (formDevice : Partial<Device>) => {
+        device.value = await deviceDao.createDevice(formDevice)
+    };
+
+    const deleteDevice = async (id: number) => {
+        device.value = null;
+        device.value = await deviceDao.deleteDevice(id);
+    }
+
     return {
         getDevices,
         devices,
         getDeviceById,
         device,
-        updateDevice
+        updateDevice,
+        createDevice,
+        deleteDevice,
     };
 })

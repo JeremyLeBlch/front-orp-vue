@@ -97,13 +97,12 @@ export default {
     });
 
     const createNewUser = () => {
-      userStore.createUser(formUser.value) // Utilisez formUser.value pour accéder aux données réactives
+      userStore.createUser(formUser.value)
           .then(() => {
             console.log("utilisateur créé");
             emit("success");
           })
           .catch((error) => {
-            // Gérez les erreurs ici
             console.error("Erreur lors de la création de l'utilisateur : ", error);
           });
     };
@@ -119,15 +118,6 @@ export default {
     userStore.getUsers(authStore.user);
   },
 };
-
-
-
-
-// const saveUser = async () => {
-//   loading.value = true;
-//   emit("success")
-//   loading.value = false;
-// };
 
 </script>
 
