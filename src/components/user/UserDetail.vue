@@ -84,7 +84,21 @@
           <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveUser"
                   class="m-4" severity="success"/>
           <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4" @click="cancelChanges"/>
-          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4" :loading="loading" @click="deleteUser"/>
+          <Toast position="bottom-center" group="bc" @close="onClose">
+            <template #message="slotProps">
+              <div class="flex flex-column align-items-center" style="flex: 1">
+                <div class="text-center">
+                  <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                  <div class="font-bold text-xl my-3">{{ slotProps.message.summary }}</div>
+                </div>
+                <div class="flex gap-2">
+                  <Button severity="success" label="Yes" @click="onConfirm()"></Button>
+                  <Button severity="secondary" label="No" @click="onReject()"></Button>
+                </div>
+              </div>
+            </template>
+          </Toast>
+          <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4" :loading="loading" @click="showTemplate"/>
         </div>
       </form>
     </template>
@@ -97,12 +111,10 @@ import {useUserStore} from "@/stores/user-store";
 import UserRoleSelector from "@/components/user/UserRoleSelector.vue";
 import User from "@/models/user";
 import CompanySelector from "@/components/company/CompanySelector.vue";
-import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
 
-const confirm = useConfirm();
 const toast = useToast();
-
+const visible = ref(false)
 const userStore = useUserStore();
 
 const props = defineProps({
@@ -128,6 +140,7 @@ const saveUser = async () => {
   loading.value = true;
   await userStore.saveUser(user.value.id, user.value);
   loading.value = false;
+  window.location.reload()
 };
 
 const updateProfilePicture = () => {
@@ -140,7 +153,32 @@ const toggleImageUrlInput = () => {
   showImageUrlInput.value = !showImageUrlInput.value;
 };
 
+
+
 const deleteUser = async () => {
   await userStore.deleteUser(user.value.id);
 };
+
+const showTemplate = () => {
+  if (!visible.value) {
+    toast.add({ severity: 'warn', summary: 'voules-vous supprimer cet utilisateur?', detail: 'Proceed to confirm', group: 'bc' });
+    visible.value = true;
+  }
+};
+
+const onConfirm = () => {
+  toast.removeGroup('bc');
+  deleteUser()
+  visible.value = false;
+  window.location.reload();
+}
+
+const onReject = () => {
+  toast.removeGroup('bc');
+  visible.value = false;
+}
+
+const onClose = () => {
+  visible.value = false;
+}
 </script>

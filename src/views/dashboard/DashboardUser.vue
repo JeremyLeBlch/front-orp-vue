@@ -15,7 +15,7 @@
       <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" />
       <Toast />
       <Dialog v-model:visible="visible" modal header="Créer un nouvel utilisateur" :style="{ width: '50vw' }">
-        <UserForm @cancel="closeForm" @success="onUserCreated" />
+        <UserForm @cancel="closeForm" @success="onUserCreated" @delete="onUserDelete" />
       </Dialog>
     </div>
 
@@ -42,13 +42,20 @@ const onRowSelect = (event) => {
 const closeForm = () => {
   visible.value = false;
 };
-const show = () => {
+const showCreate = () => {
+  toast.add({ severity: 'info', summary: 'Info', detail: 'Utilisateur créé avec succès', life: 3000 });
+};
+const showDelete = () => {
   toast.add({ severity: 'info', summary: 'Info', detail: 'Utilisateur créé avec succès', life: 3000 });
 };
 const onUserCreated = () => {
   closeForm();
-  show();
+  showCreate();
 };
+const onUserDelete = () =>{
+  closeForm();
+  showDelete();
+}
 
 const userSort = computed(() => {
   const sortedUsers = userStore.users.sort((a, b) => a.id - b.id);
