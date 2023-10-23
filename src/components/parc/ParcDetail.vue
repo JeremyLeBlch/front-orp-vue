@@ -95,9 +95,13 @@ const props = defineProps({
 const {device} = toRefs(props);
 const loading = ref(false);
 
-const originalDevice = ref(JSON.parse(JSON.stringify(device.value)));
+let selectedDeviceId = null;
+
+let deviceCopy = JSON.parse(JSON.stringify(device.value)); // Copie profonde de la machine actuelle
+
 const cancelChanges = () => {
-  Object.assign(device.value, JSON.parse(JSON.stringify(originalDevice.value)));
+  // Restaurer les valeurs de device à partir de la copie
+  Object.assign(device.value, JSON.parse(JSON.stringify(deviceCopy)));
 };
 
 const saveDevice = async () => {
@@ -113,7 +117,12 @@ const deleteDevice = async () => {
 
 const showTemplate = () => {
   if (!visible.value) {
-    toast.add({ severity: 'warn', summary: 'voules-vous supprimer cette machine?', detail: 'Proceed to confirm', group: 'bc' });
+    toast.add({
+      severity: 'warn',
+      summary: 'Voulez-vous supprimer cette machine?',
+      detail: 'Proceed to confirm',
+      group: 'bc',
+    });
     visible.value = true;
   }
 };
@@ -133,5 +142,17 @@ const onReject = () => {
 const onClose = () => {
   visible.value = false;
 }
+
+watch(
+    // Surveiller le changement de l'ID de la machine sélectionnée
+    () => device.value.id,
+    (newDeviceId) => {
+      if (newDeviceId !== selectedDeviceId) {
+        // Si l'ID de la machine a changé, copier la nouvelle machine
+        deviceCopy = JSON.parse(JSON.stringify(device.value));
+        selectedDeviceId = newDeviceId; // Mettre à jour l'ID de la machine sélectionnée
+      }
+    }
+);
 </script>
 

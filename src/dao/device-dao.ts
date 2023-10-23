@@ -19,6 +19,14 @@ export const deviceDao = {
         return await response.json();
     },
 
+    getDeviceByClient: async (deviceId: number): Promise<Device> =>{
+        const response = await fetch(`${envUtils.apiUrl}/api/user/device/${deviceId}` , {
+            method: 'GET',
+            headers: {'Content-Type' : 'application/json'}
+        });
+        return await response.json();
+    },
+
     deleteDevice: async (deviceId: number): Promise<Device> => {
         console.log('Début de la suppression de l\'appareil avec l\'ID :', deviceId);
         const response = await fetch(`${envUtils.apiUrl}/api/device/${deviceId}`, {
@@ -54,7 +62,7 @@ export const deviceDao = {
     },
 
     createDevice: async (formDevice: Partial<Device>): Promise<Device> =>{
-        const response = await fetch(envUtils.apiUrl + 'api/device', {
+        const response = await fetch(`${envUtils.apiUrl}/api/device`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

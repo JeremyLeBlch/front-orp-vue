@@ -10,6 +10,7 @@
         </Column>
       </DataTable>
     </div>
+<!--    <ParcByClient class="h-min"/>-->
     <div class="flex-grow-1 h-min">
       <DeviceDetail :device="selectedDevice" v-if="selectedDevice"/>
       <Button label="nouvelle machine" icon="pi pi-external-link" @click="visible = true" v-if="showNewDeviceButton" />
@@ -26,6 +27,7 @@ import {computed, onMounted, ref} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
 import Device from "@/models/device";
 import DeviceDetail from "@/components/parc/ParcDetail.vue";
+import ParcByClient from "@/components/parc/ParcByClient.vue";
 import { useToast } from 'primevue/usetoast';
 import ParcForm from "@/components/parc/ParcForm.vue";
 
@@ -38,10 +40,10 @@ const closeForm = () => {
   visible.value = false;
 };
 const showCreate = () => {
-  toast.add({ severity: 'info', summary: 'Info', detail: 'Utilisateur créé avec succès', life: 3000 });
+  toast.add({ severity: 'info', summary: 'Info', detail: 'Machine créé avec succès', life: 3000 });
 };
 const showDelete = () => {
-  toast.add({ severity: 'info', summary: 'Info', detail: 'Utilisateur créé avec succès', life: 3000 });
+  toast.add({ severity: 'info', summary: 'Info', detail: 'Machine créé avec succès', life: 3000 });
 };
 const onDeviceCreated = () => {
   closeForm();

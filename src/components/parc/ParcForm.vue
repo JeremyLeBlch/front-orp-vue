@@ -24,6 +24,10 @@
               <th class="bg-primary-900 p-2 text-left">Référence client</th>
               <td class="p-2"><InputText v-model="formDevice.client_reference_number" class="col-9" /></td>
             </tr>
+            <tr>
+              <th class="bg-primary-900 p-2 text-left">Propriétaire</th>
+              <td class="p-2"><InputText v-model="formDevice.code_owner" class="col-9" /></td>
+            </tr>
           </table>
         </div>
       </div>
@@ -56,13 +60,14 @@ export default {
       model: "",
       serial_number: "",
       client_reference_number: "",
+      code_owner:"",
     });
 
     const createNewDevice = () => {
       deviceStore.createDevice(formDevice.value)
           .then(() => {
             console.log("Machine creer")
-            emit("succes");
+            emit("success");
           })
           .catch((error) => {
             console.error("Erreur lors de la création de la machine : ", error);

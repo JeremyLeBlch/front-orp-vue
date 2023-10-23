@@ -12,6 +12,11 @@ export const useDeviceStore = defineStore("device", () => {
         devices.value = await deviceDao.getDevices();
     };
 
+    const getDeviceByClient = async (deviceId) =>{
+        device.value = null;
+        device.value = await deviceDao.getDeviceByClient(deviceId);
+    };
+
     const getDeviceById = async (deviceId) => {
         device.value = null;
         device.value = await deviceDao.getDeviceById(deviceId);
@@ -35,6 +40,7 @@ export const useDeviceStore = defineStore("device", () => {
         getDevices,
         devices,
         getDeviceById,
+        getDeviceByClient,
         device,
         updateDevice,
         createDevice,

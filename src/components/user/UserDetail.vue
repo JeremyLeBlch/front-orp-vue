@@ -106,7 +106,7 @@
   </Card>
 </template>
 <script setup lang="ts">
-import {ref, toRefs} from 'vue';
+import {ref, toRefs, watch} from 'vue';
 import {useUserStore} from "@/stores/user-store";
 import UserRoleSelector from "@/components/user/UserRoleSelector.vue";
 import User from "@/models/user";
@@ -129,11 +129,13 @@ const loading = ref(false);
 const newImageUrl = ref('');
 const showImageUrlInput = ref(false);
 
-const originalUser = ref(JSON.parse(JSON.stringify(user.value)));
+let selectedUserId = null;
+
+let userCopy = JSON.parse(JSON.stringify(user.value)); // Copie profonde du user actuelle
+
 const cancelChanges = () => {
-  Object.assign(user.value, JSON.parse(JSON.stringify(originalUser.value)));
-  newImageUrl.value = '';
-  showImageUrlInput.value = false;
+  // Restaurer les valeurs de device à partir de la copie
+  Object.assign(user.value, JSON.parse(JSON.stringify(userCopy)));
 };
 
 const saveUser = async () => {
@@ -181,4 +183,16 @@ const onReject = () => {
 const onClose = () => {
   visible.value = false;
 }
+
+watch(
+    // Surveiller le changement de l'ID du user
+    () => user.value.id,
+    (newDeviceId) => {
+      if (newDeviceId !== selectedUserId) {
+        // Si l'ID du user a changé, copier le nouvel user
+        userCopy = JSON.parse(JSON.stringify(user.value));
+        selectedUserId = newDeviceId; // Mettre à jour l'ID du user sélectionnée
+      }
+    }
+);
 </script>
