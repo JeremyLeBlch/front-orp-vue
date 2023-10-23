@@ -12,7 +12,7 @@
     </div>
     <div class="flex-grow-1 h-min">
       <UserDetail :user="selectedUser" v-if="selectedUser"/>
-      <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" />
+      <Button label="nouvel utilisateur" icon="pi pi-external-link" @click="visible = true" v-if="showNewUserButton"/>
       <Toast />
       <Dialog v-model:visible="visible" modal header="Créer un nouvel utilisateur" :style="{ width: '50vw' }">
         <UserForm @cancel="closeForm" @success="onUserCreated" @delete="onUserDelete" />
@@ -30,6 +30,7 @@ import UserDetail from "@/components/user/UserDetail.vue";
 import UserForm from "@/components/user/UserForm.vue";
 import { useToast } from 'primevue/usetoast';
 
+const showNewUserButton = ref(true);
 const toast = useToast();
 const authStore = useAuthStore();
 const userStore = useUserStore();
@@ -37,6 +38,7 @@ const selectedUser = ref<User>(null);
 const visible = ref(false);
 const onRowSelect = (event) => {
   selectedUser.value = event.data;
+  showNewUserButton.value = false;
 };
 
 const closeForm = () => {
