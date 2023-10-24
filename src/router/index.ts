@@ -11,6 +11,7 @@ import DashboardParc from "@/views/dashboard/DashboardParc.vue";
 import DashboardKpi from "@/views/dashboard/DashboardKpi.vue"
 import DashboardIntervention from "@/views/dashboard/DashboardIntervention.vue";
 import DashboardUserParc from "@/views/dashboard/DashboardUserParc.vue";
+import DashboardUserTicket from "@/views/dashboard/DashboardUserTicket.vue";
 
 export enum RouteName {
     home = "home",
@@ -95,6 +96,11 @@ const router = createRouter({
                     path: "customerParc",
                     name: RouteName.customerParc,
                     component: DashboardUserParc
+                },
+                {
+                    path: "customerHistory",
+                    name: RouteName.customerHistory,
+                    component: DashboardUserTicket
                 },
             ]
         }
