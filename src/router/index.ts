@@ -9,6 +9,8 @@ import DashboardTicket from "@/views/dashboard/DashboardTicket.vue";
 import DashboardUser from "@/views/dashboard/DashboardUser.vue";
 import DashboardParc from "@/views/dashboard/DashboardParc.vue";
 import DashboardKpi from "@/views/dashboard/DashboardKpi.vue"
+import DashboardIntervention from "@/views/dashboard/DashboardIntervention.vue";
+import DashboardUserParc from "@/views/dashboard/DashboardUserParc.vue";
 
 export enum RouteName {
     home = "home",
@@ -83,6 +85,16 @@ const router = createRouter({
                     path: "kpi",
                     name: RouteName.kpi,
                     component: DashboardKpi
+                },
+                {
+                    path: "ticketsByTechnicians",
+                    name: RouteName.ticketsByTechnicians,
+                    component: DashboardIntervention
+                },
+                {
+                    path: "customerParc",
+                    name: RouteName.customerParc,
+                    component: DashboardUserParc
                 },
             ]
         }

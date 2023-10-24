@@ -15,7 +15,7 @@
       <DeviceDetail :device="selectedDevice" v-if="selectedDevice"/>
       <Button label="nouvelle machine" icon="pi pi-external-link" @click="visible = true" v-if="showNewDeviceButton" />
       <Toast />
-      <Dialog v-model:visible="visible" modal header="Créer un nouvel utilisateur" :style="{ width: '50vw' }">
+      <Dialog v-model:visible="visible" modal header="Créer une nouvelle machine" :style="{ width: '50vw' }">
         <ParcForm @cancel="closeForm" @success="onDeviceCreated" @delete="onDeviceDelete" />
       </Dialog>
     </div>
@@ -43,7 +43,7 @@ const showCreate = () => {
   toast.add({ severity: 'info', summary: 'Info', detail: 'Machine créé avec succès', life: 3000 });
 };
 const showDelete = () => {
-  toast.add({ severity: 'info', summary: 'Info', detail: 'Machine créé avec succès', life: 3000 });
+  toast.add({ severity: 'info', summary: 'Info', detail: 'Machine supprimé avec succès', life: 3000 });
 };
 const onDeviceCreated = () => {
   closeForm();

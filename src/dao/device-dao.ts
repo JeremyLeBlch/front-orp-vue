@@ -19,8 +19,8 @@ export const deviceDao = {
         return await response.json();
     },
 
-    getDeviceByClient: async (deviceId: number): Promise<Device> =>{
-        const response = await fetch(`${envUtils.apiUrl}/api/user/device/${deviceId}` , {
+    getDeviceByClient: async (userId: number): Promise<Device> =>{
+        const response = await fetch(`${envUtils.apiUrl}/api/user/device/${userId}` , {
             method: 'GET',
             headers: {'Content-Type' : 'application/json'}
         });
