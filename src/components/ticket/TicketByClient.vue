@@ -3,7 +3,6 @@
     <template #title>
       <div class="flex flex-row justify-content-between">
         <div class="flex align-items-center">
-          <div>Ticket n°{{ ticket?.id }}</div>
           <TicketStatus :status="ticket.status"/>
         </div>
         <div class="flex align-items-center">
@@ -44,7 +43,7 @@
           </div>
 
           <!-- CLIENT -->
-          <div class="flex-grow-1">
+          <div class="flex-grow-1 max-w-screen">
             <h3>Client</h3>
             <table v-if="userStore.user">
               <tr>
@@ -77,11 +76,11 @@
         <h3>Informations</h3>
         <div>
           <label for="subject" class="p-2 block">Commentaire</label>
-          <Textarea v-model="ticket.comments" rows="5" cols="30" id="subject" class="w-full"/>
+          <Textarea v-model="ticket.comments" rows="5" cols="30" id="subject" class="w-full" disabled/>
         </div>
         <div class="mt-4">
           <label for="address" class="p-2 block">Adresse</label>
-          <InputText v-model="ticket.location" placeholder="Adresse" id="address" class="w-full"/>
+          <InputText v-model="ticket.location" placeholder="Adresse" id="address" class="w-full" disabled/>
         </div>
 
         <Divider/>
@@ -90,40 +89,20 @@
         <div class="flex flex-row">
           <div class="mr-2">
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Début d'intervention </label>
-            <Calendar id="calendar-24h" v-model="ticket.intervention_start" showTime hourFormat="24"/>
+            <Calendar id="calendar-24h" v-model="ticket.intervention_start" showTime hourFormat="24" disabled/>
           </div>
           <div class="">
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Fin d'intervention </label>
-            <Calendar id="calendar-24h" v-model="ticket.intervention_end" showTime hourFormat="24"/>
+            <Calendar id="calendar-24h" v-model="ticket.intervention_end" showTime hourFormat="24" disabled/>
           </div>
         </div>
         <div class="card">
-          <h3>Technicien</h3>
-          <div>
-            <label for="technician" class="p-2 block">Technicien affecté</label>
-            <Dropdown
-                id="technician"
-                v-model="ticket.code_technician"
-                :optionLabel="(technician) => technician.fullName()"
-                optionValue="id"
-                :options="tabTechnicians"/>
-        </div>
           <h3>Statut</h3>
           <div>
-            <Dropdown v-model="ticket.status" :options="status" optionLabel="name" optionValue="code" placeholder="Statut du ticket" class="md:w-14rem" />
-          </div>
-          <div class="mx-auto">
-            <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
-                    class="m-4" severity="success"/>
-            <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"  @click="resetTicket(ticket.id)"/>
+            <Dropdown v-model="ticket.status" :options="status" optionLabel="name" optionValue="code" placeholder="Statut du ticket" class="md:w-14rem" disabled />
           </div>
         </div>
       </form>
-      <Dialog v-model:visible="visible" modal header="Sauvegarde" :style="{ width: '50vw' }">
-        <p>
-          Le ticket a bien été enregistré !
-        </p>
-      </Dialog>
     </template>
   </Card>
 </template>
@@ -150,9 +129,10 @@ const props = defineProps({
 });
 
 const {ticket} = toRefs(props);
+console.log("Ticket ID in TicketDetail:", ticket.value.id);
 
-const tabTechnicians = computed(() => userStore.technicians);
-const loading = ref(false);
+
+
 const visible = ref(false);
 
 const status = ref([

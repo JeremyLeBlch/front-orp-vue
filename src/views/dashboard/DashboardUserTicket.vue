@@ -1,8 +1,7 @@
 <template>
   <div class="flex flex-column gap-4 md:flex-row">
-    <div class="left-panel">
+    <div class="left-panel ">
       <DataTable :value="ticketStore.tickets" @row-click="onRowSelect">
-        <Column field="id" header="ID" class="border-solid"/>
         <Column field="status" header="Status">
           <template #body="{ data }">
             <TicketStatus :status="data.status"/>
@@ -32,13 +31,14 @@ const selectedTicket = ref<Ticket>(null);
 
 const onRowSelect = (event : any) => {
   selectedTicket.value = event.data;
+  console.log("Selected Ticket ID:", selectedTicket.value.id);
 };
 
 
-const ticketSort = computed(() => {
-  const sortedTickets = ticketStore.tickets.sort((a, b) => a.id - b.id);
-  return sortedTickets;
-});
+// const ticketSort = computed(() => {
+//   const sortedTickets = ticketStore.tickets.sort((a, b) => a.id - b.id);
+//   return sortedTickets;
+// });
 
 
 onMounted(() => {
