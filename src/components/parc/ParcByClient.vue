@@ -15,29 +15,27 @@
             <table class="w-full">
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Type</th>
-                <td class="p-2"><InputText v-model="device.engine_type" class="col-8 md:col-4"/></td>
+                <td class="p-2 col-8 md:col-4">{{ device.engine_type }} </td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Marque</th>
-                <td class="p-2"><InputText v-model="device.brand" class="col-8 md:col-4"/></td>
+                <td class="p-2 col-8 md:col-4">{{device.brand}}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Modèle</th>
-                <td class="p-2"><InputText v-model="device.model" class="col-8 md:col-4"/></td>
+                <td class="p-2 col-8 md:col-4">{{device.model}}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Numéro de Série</th>
-                <td class="p-2"><InputText v-model="device.serial_number" class="col-8 md:col-4" /></td>
+                <td class="p-2 col-8 md:col-4">{{device.serial_number}}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Entreprise</th>
-                <td class="p-2">
-                  <CompanySelector v-model="device.code_owner"  class="col-8 md:col-4"/>
-                </td>
+                <td class="p-2 col-8 md:col-4">{{device.code_owner}}</td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Référence client</th>
-                <td class="p-2"><InputText v-model="device.client_reference_number" class="col-8 md:col-4" /></td>
+                <td class="p-2 col-8 md:col-4">{{device.client_reference_number}}</td>
               </tr>
             </table>
           </div>

@@ -12,7 +12,7 @@ export const ticketDao = {
         if (user.isPlanning()) {
             url = `/api/tickets`;
         } else if (user.isUser() || user.isTechnician()) {
-            url = `/api/user/tickets/${user.id}`;
+            url = `/api/user/ticket/${user.id}`;
         } else {
             return [];
         }

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-row gap-4">
+  <div class="flex flex-column gap-4 md:flex-row">
     <div class="left-panel">
-      <DataTable :value="ticketSort" @row-click="onRowSelect">
+      <DataTable :value="ticketStore.tickets" @row-click="onRowSelect">
         <Column field="id" header="ID" class="border-solid"/>
         <Column field="status" header="Status">
           <template #body="{ data }">
@@ -22,7 +22,7 @@ import {useDeviceStore} from "@/stores/device-store";
 import {useAuthStore} from "@/stores/auth-store";
 import Ticket from "@/models/ticket";
 import TicketStatus from "@/components/ticket/TicketStatus.vue";
-import TicketDetail from "@/components/ticket/TicketDetail.vue";
+import TicketDetail from "@/components/ticket/TicketByClient.vue";
 
 const authStore = useAuthStore();
 const ticketStore = useTicketStore();
