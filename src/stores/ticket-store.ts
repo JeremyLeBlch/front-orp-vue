@@ -8,7 +8,7 @@ export const useTicketStore = defineStore("ticket", () => {
     const tickets = ref<Ticket[]>([]);
     const ticket = ref<Ticket>(null);
 
-    const getTickets = async (user: User) => {
+    const getTickets = async (user: any) => {
         tickets.value = await ticketDao.getTickets(user);
     };
 

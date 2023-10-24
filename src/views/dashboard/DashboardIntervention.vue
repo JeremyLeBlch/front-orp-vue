@@ -40,7 +40,7 @@ const ticketSort = computed(() => {
   return sortedTickets;
 });
 
-
+console.log(ticketSort.value);
 onMounted(() => {
   ticketStore.getTickets(authStore.user);
 });

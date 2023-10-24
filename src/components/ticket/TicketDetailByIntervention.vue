@@ -90,11 +90,11 @@
         <div class="flex flex-row">
           <div class="mr-2">
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Début d'intervention </label>
-            <Calendar id="calendar-24h" v-model="ticket.intervention_start" showTime hourFormat="24"/>
+            <Calendar id="calendar-24h" v-model="ticket.intervention_start" showTime hourFormat="24" disabled/>
           </div>
           <div class="">
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Fin d'intervention </label>
-            <Calendar id="calendar-24h" v-model="ticket.intervention_end" showTime hourFormat="24"/>
+            <Calendar id="calendar-24h" v-model="ticket.intervention_end" showTime hourFormat="24" disabled/>
           </div>
         </div>
         <div class="card">
