@@ -116,11 +116,16 @@
             <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
                     class="m-4" severity="success"/>
             <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"  @click="resetTicket(ticket.id)"/>
-            <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
+            <Button type="button" label="Supprimer" icon="pi pi-times" class="m-4"  severity="danger" @click="deleteTicket(ticket.id)"/>
           </div>
         </div>
       </form>
-      <Dialog v-model:visible="visible" modal header="Sauvegarde" :style="{ width: '50vw' }">
+      <Dialog v-model:visible="ticketSaved" modal header="Sauvegarde" :style="{ width: '50vw' }">
+        <p>
+          Le ticket a bien été enregistré !
+        </p>
+      </Dialog>
+      <Dialog v-model:visible="ticketDelete" modal header="Sauvegarde" :style="{ width: '50vw' }">
         <p>
           Le ticket a bien été enregistré !
         </p>
@@ -133,6 +138,8 @@ import {computed, onMounted, ref, toRefs, watch} from 'vue';
 import {useTicketStore} from "@/stores/ticket-store";
 import {useDeviceStore} from "@/stores/device-store";
 import {useAuthStore} from "@/stores/auth-store";
+
+
 
 import Ticket from "@/models/ticket";
 import TicketStatus from "@/components/ticket/TicketStatus.vue";
@@ -154,7 +161,9 @@ const {ticket} = toRefs(props);
 
 const tabTechnicians = computed(() => userStore.technicians);
 const loading = ref(false);
-const visible = ref(false);
+const ticketSaved = ref(false);
+const ticketDelete = ref(false);
+
 
 const status = ref([
   {name: 'Ouvert', code: 'open'},
@@ -190,10 +199,10 @@ async function saveTicket() {
   }
   await ticketStore.updateTicket(ticket.value.id, ticket.value);
   await ticketStore.getTickets(authStore.user);
-  visible.value = true;
+  ticketSaved.value = true;
 }
 
-async function resetTicket(idTicket : number){
+async function resetTicket(idTicket){
   const ticketFromStore = await ticketStore.getTicketId(idTicket);
 
   ticket.value.comments = ticketFromStore.comments;
@@ -206,7 +215,13 @@ async function resetTicket(idTicket : number){
 
   transformDate();
 }
+defineEmits(['ticket-deleted'])
 
+async function deleteTicket(id){
+  await ticketStore.deleteTicket(id);
+  ticketDelete.value = true;
+  emit('ticket-deleted', id);
+}
 
 function refreshExtra() {
   deviceStore.getDeviceById(ticket.value.code_machine);

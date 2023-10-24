@@ -53,6 +53,15 @@ export const ticketDao = {
             body: JSON.stringify(updatedData)
         });
         return await response.json();
+    },
+    deleteTicket: async (ticketId: number) => {
+        const response = await fetch(`${envUtils.apiUrl}/api/tickets/${ticketId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
     }
+
 };
 

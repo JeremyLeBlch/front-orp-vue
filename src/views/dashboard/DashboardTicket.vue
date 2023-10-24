@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row gap-4">
     <div class="left-panel">
-      <DataTable :value="ticketSort" @row-click="onRowSelect">
+      <DataTable :value="ticketSort" @row-click="onRowSelect ">
         <Column field="id" header="ID" class="border-solid"/>
         <Column field="status" header="Status">
           <template #body="{ data }">
@@ -11,7 +11,7 @@
       </DataTable>
     </div>
     <div class="flex-grow-1 h-min">
-      <TicketDetail :ticket="selectedTicket" v-if="selectedTicket"/>
+      <TicketDetail :ticket="selectedTicket" v-if="selectedTicket" @ticket-deleted="onTicketDeleted"/>
     </div>
   </div>
 </template>
@@ -34,11 +34,18 @@ const onRowSelect = (event : any) => {
   selectedTicket.value = event.data;
 };
 
+const onTicketDeleted = (deletedTicketId) => {
+  const index = ticketSort.value.findIndex((ticket) => ticket.id === deletedTicketId);
+  if (index !== -1) {
+    ticketSort.value.splice(index, 1);
+  }
+};
 
 const ticketSort = computed(() => {
   const sortedTickets = ticketStore.tickets.sort((a, b) => a.id - b.id);
   return sortedTickets;
 });
+
 
 
 onMounted(() => {

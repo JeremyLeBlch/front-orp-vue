@@ -32,6 +32,9 @@ import FileUpload from 'primevue/fileupload';
 import ProgressSpinner from "primevue/progressspinner";
 import Chart from 'primevue/chart';
 import Dialog from 'primevue/dialog';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
+
 
 
 const app = createApp(App);
@@ -62,6 +65,8 @@ app.component("FileUpload", FileUpload);
 app.component("ProgressSpinner", ProgressSpinner);
 app.component('Chart', Chart);
 app.component('Dialog', Dialog);
+app.component('ConfirmationService', ConfirmDialog);
+app.use(ConfirmationService);
 
 
 // start
