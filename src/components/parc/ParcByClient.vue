@@ -6,10 +6,6 @@
         <div class="flex align-items-center">
           <div>{{ device?.model }}</div>
         </div>
-        <div class="flex align-items-center">
-          <label for="rating" class="flex align-items-center pr-2 text-sm">Marque</label>
-          <InputText v-model="device.brand" :cancel="false"/>
-        </div>
       </div>
     </template>
     <template #content>
@@ -18,34 +14,30 @@
           <div class="flex-grow-1">
             <table class="w-full">
               <tr>
-                <th class="bg-primary-900 p-2 text-left">ID</th>
-                <td class="p-2">{{device.id}}</td>
-              </tr>
-              <tr>
                 <th class="bg-primary-900 p-2 text-left">Type</th>
-                <td class="p-2"><InputText v-model="device.engine_type" class="col-4"/></td>
+                <td class="p-2"><InputText v-model="device.engine_type" class="col-8 md:col-4"/></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Marque</th>
-                <td class="p-2"><InputText v-model="device.brand" class="col-4"/></td>
+                <td class="p-2"><InputText v-model="device.brand" class="col-8 md:col-4"/></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Modèle</th>
-                <td class="p-2"><InputText v-model="device.model" class="col-4"/></td>
+                <td class="p-2"><InputText v-model="device.model" class="col-8 md:col-4"/></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Numéro de Série</th>
-                <td class="p-2"><InputText v-model="device.serial_number" class="col-4" /></td>
+                <td class="p-2"><InputText v-model="device.serial_number" class="col-8 md:col-4" /></td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Entreprise</th>
                 <td class="p-2">
-                  <CompanySelector v-model="device.code_owner"  class="col-4"/>
+                  <CompanySelector v-model="device.code_owner"  class="col-8 md:col-4"/>
                 </td>
               </tr>
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Référence client</th>
-                <td class="p-2"><InputText v-model="device.client_reference_number" class="col-4" /></td>
+                <td class="p-2"><InputText v-model="device.client_reference_number" class="col-8 md:col-4" /></td>
               </tr>
             </table>
           </div>

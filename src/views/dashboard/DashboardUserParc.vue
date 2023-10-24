@@ -1,8 +1,7 @@
 <template>
-  <div class="flex flex-row gap-4">
+  <div class="flex flex-column gap-4 md:flex-row">
     <div class="left-panel">
       <DataTable :value="deviceStore.device" @row-click="onRowSelect">
-        <Column field="id" header="ID" class="border-solid"/>
         <Column field="deviceName()" header="Nom de la machine">
           <template #body="{data}">
             {{ (data as Device).model}}
@@ -10,15 +9,14 @@
         </Column>
       </DataTable>
     </div>
-<!--    <ParcByClient class="h-min"/>-->
-    <div class="flex-grow-1 h-min">
+    <div class="flex-grow-1 h-min ">
       <DeviceDetail :device="selectedDevice" v-if="selectedDevice"/>
     </div>
 
   </div>
 </template>
 <script setup lang="ts">
-import {computed, onMounted, ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
 import Device from "@/models/device";
 import DeviceDetail from "@/components/parc/ParcByClient.vue";
@@ -38,6 +36,7 @@ const onRowSelect = (event) => {
 
 onMounted(() => {
   deviceStore.getDeviceByClient(authStore.user.id);
+  console.log(deviceStore.device);
 });
 
 
