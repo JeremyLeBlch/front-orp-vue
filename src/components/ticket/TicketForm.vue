@@ -2,14 +2,14 @@
       <form @submit="createNewTicket">
         <div class="flex-grow-1">
           <div class="w-full">
-            <Dropdown v-model="formTicket.emergency_degree" :options="emergency" optionLabel="name" optionValue="code" placeholder="Niveau d'urgence" class="md:w-14rem" />
+            <EmergencySelector v-model="formTicket.emergency_degree"/>
           </div>
 
           <Divider align="center" type="dotted">
             <b>Type d'intervention</b>
           </Divider>
           <div>
-            <Dropdown v-model="selectedType" :options="type" optionLabel="name" optionValue="code" placeholder="selectionner le type" class="md:w-14rem" />
+            <InterventionTypeSelector v-model="formTicket.code_type"/>
           </div>
 
           <!-- MACHINE -->
@@ -17,12 +17,7 @@
             <b>Concerne</b>
           </Divider>
           <div>
-            <table class="w-full">
-              <tr>
-                <th class="bg-primary-900 p-2 text-left">Machine</th>
-                <DeviceSelector v-model="formTicket.devices"  class="col-12"/>
-              </tr>
-            </table>
+            <DeviceSelector v-model="formTicket.code_machine" class="w-full"/>
           </div>
         </div>
 
@@ -42,8 +37,6 @@
         <Divider align="center" type="dotted">
           <b>Intervention</b>
         </Divider>
-
-
         <div class="flex flex-row">
           <div class="mr-2">
             <label for="calendar-24h" class="font-bold block mb-2 p-2"> Date d'intervention souhaitée </label>
@@ -68,63 +61,37 @@
       </Dialog>
     </template>
 <script setup lang="ts">
-import {computed, onMounted, ref, toRefs, watch} from 'vue';
+import InterventionTypeSelector from "@/components/ticket/InterventionTypeSelector.vue";
+import {onMounted, ref} from 'vue';
 import {useTicketStore} from "@/stores/ticket-store";
-import {useDeviceStore} from "@/stores/device-store";
 import {useAuthStore} from "@/stores/auth-store";
 import Ticket from "@/models/ticket";
-import {useUserStore} from "@/stores/user-store";
 import DeviceSelector from "@/components/parc/DeviceSelector.vue";
+import EmergencySelector from "@/components/ticket/EmergencySelector.vue";
 
 const authStore = useAuthStore();
 const ticketStore = useTicketStore();
-const deviceStore = useDeviceStore();
-const userStore = useUserStore();
 
-const selectedType = ref(null);
+const emit = defineEmits(["success","cancel"]);
+
 const intervention_start = ref(null);
-
 const loading = ref(false);
 const visible = ref(false);
 
-const formTicket = ref({
-  emergency_degree:0,
-  status:"open",
+const formTicket = ref<Partial<Ticket>>({
+  emergency_degree: 0,
+  status: "open",
   comments: "",
   location: "",
-  intervention_start: intervention_start.value,
-  code_type: selectedType.value,
-  code_machine:0,
-  code_client: authStore.user.id
+  intervention_start: null,
+  code_type: null,
+  code_machine: null,
+  code_client: null
 });
-
-const {ticket} = toRefs(props);
-const props = defineProps({
-  ticket: {
-    type: Ticket,
-    required: true
-  }
-});
-
-const type = ref([
-  {name: 'Revision', code: 1},
-  {name: 'Climatisation', code: 2},
-  {name: 'Réparation', code: 3},
-]);
-
-const emergency = ref([
-  {name: 'Non-urgent', code: 1},
-  {name: 'Modéré', code: 2},
-  {name: 'Urgent', code: 3},
-]);
 
 onMounted(() => {
+  formTicket.value.code_client = authStore.user.id;
   refreshExtra();
-});
-
-watch(ticket, (newTicket) => {
-  refreshExtra();
-  formTicket.value = { ...newTicket };
 });
 
 function transformDate(){
@@ -133,6 +100,7 @@ function transformDate(){
   }
 }
 async function createNewTicket() {
+  console.log(formTicket.value);
   if (formTicket.value.intervention_start){
     const dateStart = new Date(formTicket.value.intervention_start );
     dateStart.toISOString();
@@ -142,14 +110,11 @@ async function createNewTicket() {
   visible.value = true;
 }
 
-const emit = defineEmits(["success","cancel"]);
 const cancelForm = () => {
   emit("cancel");
 };
 
 function refreshExtra() {
-  deviceStore.getDeviceById(formTicket.value.code_machine);
-  userStore.getUserById(formTicket.value.code_client);
   transformDate();
 }
 

@@ -18,4 +18,8 @@ export default class Device {
         this.code_owner = device.code_owner;
         this.code_creator = device.code_creator
     }
+
+    public get name(): string {
+        return `${this.brand} - ${this.client_reference_number}`;
+    }
 }

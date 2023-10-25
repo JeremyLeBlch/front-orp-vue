@@ -1,7 +1,5 @@
 import Device from "@/models/device";
 import {envUtils} from "@/config/env-utils";
-import Ticket from "@/models/ticket";
-import User from "@/models/user";
 
 /**
  * Device Dao
@@ -16,29 +14,33 @@ export const deviceDao = {
                 'Content-Type': 'application/json'
             }
         });
-        return await response.json();
+
+        const tabDevices = await response.json();
+        return tabDevices.map(data => new Device(data));
     },
 
-    getDeviceByClient: async (userId: number): Promise<Device[]> =>{
+    getDevicesByClient: async (userId: number): Promise<Device[]> =>{
         const response = await fetch(`${envUtils.apiUrl}/api/user/device/${userId}` , {
             method: 'GET',
             headers: {'Content-Type' : 'application/json'}
         });
-        return await response.json();
+
+        const tabDevices = await response.json();
+        return tabDevices.map(data => new Device(data));
     },
 
-    deleteDevice: async (deviceId: number): Promise<Device> => {
+    deleteDevice: async (deviceId: number): Promise<void> => {
         console.log('Début de la suppression de l\'appareil avec l\'ID :', deviceId);
         const response = await fetch(`${envUtils.apiUrl}/api/device/${deviceId}`, {
             method: 'DELETE',
             headers: {'Content-Type' : 'application/json'}
         });
+
         if (response.ok) {
             console.log('La suppression de l\'appareil a réussi.');
         } else {
             console.error('La suppression de l\'appareil a échoué. Statut de réponse :', response.status);
         }
-        return await response.json();
     },
 
     getDeviceById: async (deviceId: number): Promise<Device> => {
@@ -48,7 +50,8 @@ export const deviceDao = {
                 'Content-Type': 'application/json'
             }
         });
-        return await response.json();
+        const data = await response.json();
+        return new Device(data);
     },
     updateDevice: async (deviceId: number, updatedData: Partial<Device>): Promise<Device> => {
         const response = await fetch(`${envUtils.apiUrl}/api/device/${deviceId}`, {
@@ -58,7 +61,9 @@ export const deviceDao = {
             },
             body: JSON.stringify(updatedData)
         });
-        return await response.json();
+
+        const data = await response.json();
+        return new Device(data);
     },
 
     createDevice: async (formDevice: Partial<Device>): Promise<Device> =>{

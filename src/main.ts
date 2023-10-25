@@ -35,6 +35,7 @@ import Dialog from 'primevue/dialog';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
 import ConfirmPopup from 'primevue/confirmpopup';
+import InputNumber from "primevue/inputnumber";
 
 
 const app = createApp(App);
@@ -47,6 +48,7 @@ app.use(ToastService);
 app.use(ConfirmationService);
 app.component('Button', Button);
 app.component('InputText', InputText);
+app.component("InputNumber", InputNumber);
 app.component('Toast', Toast);
 app.component('Password', Password);
 app.component('TieredMenu', TieredMenu);

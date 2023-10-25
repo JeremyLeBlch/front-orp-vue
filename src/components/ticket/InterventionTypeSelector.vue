@@ -1,22 +1,21 @@
 <template>
     <Dropdown v-model="selected"
               :options="selectable"
-              option-label="title"
-              option-value="id"
-              placeholder="Sélection du rôle"
+              option-label="name"
+              option-value="code"
+              placeholder="Type d'intervention"
               class="w-full" />
 </template>
 <script setup lang="ts">
 import {computed, ref} from "vue";
 
 const emit = defineEmits(["update:modelValue"]);
-const props = defineProps<{ modelValue: string }>();
+const props = defineProps<{ modelValue: number }>();
 
 const selectable = ref([
-  { id: "intervention", title: "Intervention" },
-  { id: "planning", title: "Planning" },
-  { id: "admin", title: "Administrateur" },
-  { id: "user", title: "Utilisateur" }
+  {name: 'Revision', code: 1},
+  {name: 'Climatisation', code: 2},
+  {name: 'Réparation', code: 3},
 ]);
 
 const selected = computed({

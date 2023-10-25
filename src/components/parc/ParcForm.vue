@@ -26,7 +26,9 @@
             </tr>
             <tr>
               <th class="bg-primary-900 p-2 text-left">Propriétaire</th>
-              <td class="p-2"><InputText v-model="formDevice.code_owner" class="col-9" /></td>
+              <td class="p-2">
+                <InputNumber v-model="formDevice.code_owner" class="col-9" />
+              </td>
             </tr>
           </table>
         </div>
@@ -39,51 +41,37 @@
     </form>
   </div>
 </template>
-<script lang="ts">
-import {onMounted, ref, toRefs, watch} from 'vue';
+<script setup lang="ts">
+import {ref} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
 import Device from "@/models/device";
 
+const deviceStore = useDeviceStore();
 
+const emit = defineEmits(["cancel","success"]);
 
-export default {
-  setup(props, {emit}) {
+const formDevice = ref<Partial<Device>>({
+  engine_type: "",
+  brand: "",
+  model: "",
+  serial_number: "",
+  client_reference_number: "",
+  code_owner: null,
+});
 
-    const cancelForm = () => {
-      emit("cancel");
-    };
-
-    const deviceStore = useDeviceStore();
-
-    const formDevice = ref({
-      engine_type: "",
-      brand: "",
-      model: "",
-      serial_number: "",
-      client_reference_number: "",
-      code_owner:"",
-    });
-
-    const createNewDevice = () => {
-      deviceStore.createDevice(formDevice.value)
-          .then(() => {
-            console.log("Machine creer")
-            emit("success");
-          })
-          .catch((error) => {
-            console.error("Erreur lors de la création de la machine : ", error);
-          });
-    };
-
-    return {
-      cancelForm,
-      formDevice,
-      createNewDevice,
-    };
-  },
+const createNewDevice = async () => {
+  try {
+    await deviceStore.createDevice(formDevice.value);
+    console.log("Machine creer");
+    emit("success");
+  } catch (err){
+    console.error("Erreur lors de la création de la machine : ", err);
+  }
 };
 
-
+const cancelForm = () => {
+  emit("cancel");
+};
 
 </script>
 

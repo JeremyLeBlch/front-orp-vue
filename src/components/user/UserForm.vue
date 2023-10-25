@@ -43,18 +43,13 @@
             <tr>
               <th class="bg-primary-900 p-2 text-left">Rôle de l'utilisateur</th>
               <td class="p-2">
-                <select v-model="formUser.user_role" class="col-9" required>
-                  <option value="user">Utilisateur</option>
-                  <option value="admin">Administrateur</option>
-                  <option value="intervention">Intervention</option>
-                  <option value="planning">Planning</option>
-                </select>
+                <UserRoleSelector v-model="formUser.user_role" />
               </td>
             </tr>
             <tr>
               <th class="bg-primary-900 p-2 text-left">Code de l'entreprise</th>
               <td class="p-2">
-                <InputText v-model="formUser.company_code" class="col-9" required />
+                <CompanySelector v-model="formUser.company_code" class="w-full"/>
               </td>
             </tr>
           </table>
@@ -68,62 +63,51 @@
     </form>
   </div>
 </template>
-
-<script >
+<script setup lang="ts">
 import {useUserStore} from "@/stores/user-store";
-import {onMounted, ref, toRefs, watch} from 'vue';
-import UserRoleSelector from "@/components/user/UserRoleSelector.vue";
+import {onMounted, ref} from 'vue';
 import {useAuthStore} from "@/stores/auth-store";
 import User from "@/models/user";
+import CompanySelector from "@/components/company/CompanySelector.vue";
+import UserRoleSelector from "@/components/user/UserRoleSelector.vue";
 
-export default {
-  setup(props, { emit }) {
-    const cancelForm = () => {
-      emit("cancel");
-    };
+const userStore = useUserStore();
+const authStore = useAuthStore();
 
-    const userStore = useUserStore();
-    const authStore = useAuthStore();
+const emit = defineEmits(["cancel", "success"]);
 
-    const formUser = ref({
-      first_name: "",
-      last_name: "",
-      email: "",
-      address: "",
-      password: "",
-      profil_picture_url: "",
-      user_role: "",
-      active:true
-    });
+const loading = ref(false);
 
-    const createNewUser = () => {
-      userStore.createUser(formUser.value)
-          .then(() => {
-            console.log("utilisateur créé");
-            emit("success");
-          })
-          .catch((error) => {
-            console.error("Erreur lors de la création de l'utilisateur : ", error);
-          });
-    };
+const formUser = ref<Partial<User>>({
+  first_name: "",
+  last_name: "",
+  email: "",
+  address: "",
+  password: "",
+  profil_picture_url: "",
+  user_role: "",
+  active: true
+});
 
-    return {
-      cancelForm,
-      formUser,
-      createNewUser,
-    };
-  },
+onMounted(() => {
+  userStore.getUsers(authStore.user);
+});
 
-  onMounted() {
-    userStore.getUsers(authStore.user);
-  },
+const cancelForm = () => {
+  emit("cancel");
+};
+
+const createNewUser = async () => {
+  try {
+    loading.value = true;
+    await userStore.createUser(formUser.value);
+    console.log("utilisateur créé");
+    emit("success");
+  } catch (error){
+    console.error("Erreur lors de la création de l'utilisateur : ", error);
+  } finally {
+    loading.value = false;
+  }
 };
 
 </script>
-
-
-
-
-
-
-

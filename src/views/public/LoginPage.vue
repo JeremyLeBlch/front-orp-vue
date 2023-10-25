@@ -25,8 +25,13 @@
             DEV ZONE
           </template>
           <template #content>
-            <div v-for="user in devAuthUsers" :key="user.email">
-              <Button size="small" :label="user.role.toUpperCase()" @click="selectDevUser(user)" class="mb-2 w-full" severity="info"/>
+            <div class="flex flex-row gap-4">
+              <div v-for="(users, key) in devAuthUsers" :key="key" class="flex-grow-1">
+                <h3>{{key}}</h3>
+                <div v-for="user in users" :key="user.email">
+                  <Button size="small" :label="user.role.toUpperCase()" @click="selectDevUser(user)" class="mb-2 w-full" severity="info"/>
+                </div>
+              </div>
             </div>
           </template>
         </Card>
@@ -66,28 +71,52 @@ const authStore = useAuthStore();
 const email = ref('');
 const password = ref('');
 
-const devAuthUsers = ref([
-  {
-    email: "Aliya.Cummings@yahoo.com",
-    password: "%4_N7o6fTk",
-    role: "intervention"
-  },
-  {
-    email: "Josiah.Cormier33@gmail.com",
-    password: "#8rwAB2qGA",
-    role: "user"
-  },
-  {
-    email: "Clarabelle84@yahoo.com",
-    password: "*3av8MTCp7",
-    role: "planning"
-  },
-  {
-    email: "Sheldon58@hotmail.com",
-    password: "%9cjKuPNpv",
-    role: "admin"
-  },
-]);
+const devAuthUsers = ref({
+  jeremy: [
+    {
+      email: "Aliya.Cummings@yahoo.com",
+      password: "%4_N7o6fTk",
+      role: "intervention"
+    },
+    {
+      email: "Josiah.Cormier33@gmail.com",
+      password: "#8rwAB2qGA",
+      role: "user"
+    },
+    {
+      email: "Clarabelle84@yahoo.com",
+      password: "*3av8MTCp7",
+      role: "planning"
+    },
+    {
+      email: "Sheldon58@hotmail.com",
+      password: "%9cjKuPNpv",
+      role: "admin"
+    },
+  ],
+  jeb: [
+    {
+      email: "Lucienne16@yahoo.com",
+      password: "Qwerty1234!",
+      role: "intervention"
+    },
+    {
+      email: "JEB@gmail.fr",
+      password: "Qwerty1234!",
+      role: "user"
+    },
+    {
+      email: "Damian_Daugherty71@yahoo.com",
+      password: "Qwerty1234!",
+      role: "planning"
+    },
+    {
+      email: "Sylvan21@hotmail.com",
+      password: "Qwerty1234!",
+      role: "admin"
+    },
+  ]
+});
 
 const login = async () => {
   try {
