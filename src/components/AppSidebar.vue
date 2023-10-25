@@ -54,26 +54,26 @@ const adminRoutes = [
 ];
 
 const userRoutes = [
+  // {
+  //   label: 'Nouveau Ticket',
+  //   command: () => openPage(RouteName.newTicket)
+  // },
   {
-    label: 'Nouveau Ticket',
-    command: () => openPage(RouteName.newTicket)
-  },
-  {
-    label: 'Historique',
+    label: 'Ticket',
     command: () => openPage(RouteName.customerHistory)
   },
   {
     label: 'Parc',
     command: () => openPage(RouteName.customerParc)
   },
-  {
-    label: 'Avis',
-    command: () => openPage(RouteName.customerReview)
-  },
-  {
-    label: 'Messagerie',
-    command: () => openPage(RouteName.messaging)
-  }
+  // {
+  //   label: 'Avis',
+  //   command: () => openPage(RouteName.customerReview)
+  // },
+  // {
+  //   label: 'Messagerie',
+  //   command: () => openPage(RouteName.messaging)
+  // }
 ];
 const planningRoutes = [
   {
@@ -88,10 +88,10 @@ const planningRoutes = [
     label: 'Parc Client',
     command: () => openPage(RouteName.allParc)
   },
-  {
-    label: 'Messagerie',
-    command: () => openPage(RouteName.messaging)
-  }
+  // {
+  //   label: 'Messagerie',
+  //   command: () => openPage(RouteName.messaging)
+  // }
 ];
 const techRoutes = [
   {

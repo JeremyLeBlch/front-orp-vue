@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-column gap-4 md:flex-row">
     <div class="left-panel">
-      <DataTable :value="deviceStore.device" @row-click="onRowSelect">
+      <DataTable :value="deviceStore.devices" @row-click="onRowSelect">
         <Column field="deviceName()" header="Nom de la machine">
           <template #body="{data}">
             {{ (data as Device).model}}
@@ -36,7 +36,7 @@ const onRowSelect = (event) => {
 
 onMounted(() => {
   deviceStore.getDeviceByClient(authStore.user.id);
-  console.log(deviceStore.device);
+  console.log(deviceStore.devices);
 });
 
 

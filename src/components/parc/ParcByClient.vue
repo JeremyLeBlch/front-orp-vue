@@ -11,7 +11,7 @@
     <template #content>
       <form @submit="saveDevice">
         <div class="flex flex-row">
-          <div class="flex-grow-1 max-w-screen">
+          <div class="flex-grow-1 max-w-screen ">
             <table class="w-full">
               <tr>
                 <th class="bg-primary-900 p-2 text-left">Type</th>

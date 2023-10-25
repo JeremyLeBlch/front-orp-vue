@@ -3,6 +3,7 @@ import {ref} from "vue";
 import {ticketDao} from "@/dao/ticket-dao";
 import type User from "@/models/user";
 import Ticket from "@/models/ticket";
+import {userDao} from "@/dao/user-dao";
 
 export const useTicketStore = defineStore("ticket", () => {
     const tickets = ref<Ticket[]>([]);
@@ -20,11 +21,16 @@ export const useTicketStore = defineStore("ticket", () => {
         ticket.value = await ticketDao.updateTicket(id, formTicket);
     };
 
+    const createTicket = async (formTicket : Partial<Ticket>) => {
+        ticket.value = await ticketDao.createTicket(formTicket);
+    };
+
     return {
         getTickets,
         tickets,
         getTicketId,
         ticket,
         updateTicket,
+        createTicket,
     };
 });

@@ -14,7 +14,7 @@ export const useDeviceStore = defineStore("device", () => {
 
     const getDeviceByClient = async (userId) =>{
         device.value = null;
-        device.value = await deviceDao.getDeviceByClient(userId);
+        devices.value = await deviceDao.getDeviceByClient(userId);
     };
 
     const getDeviceById = async (deviceId) => {

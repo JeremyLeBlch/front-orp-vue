@@ -53,6 +53,21 @@ export const ticketDao = {
             body: JSON.stringify(updatedData)
         });
         return await response.json();
-    }
+    },
+    createTicket: async (formTicket: Partial<Ticket>): Promise<Ticket> => {
+        const response = await fetch(`${envUtils.apiUrl}/api/tickets`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formTicket)
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la création du ticket');
+        }
+
+        return new Ticket(await response.json());
+    },
 };
 

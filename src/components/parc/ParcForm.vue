@@ -48,6 +48,7 @@ import Device from "@/models/device";
 
 export default {
   setup(props, {emit}) {
+
     const cancelForm = () => {
       emit("cancel");
     };
