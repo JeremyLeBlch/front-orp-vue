@@ -116,7 +116,7 @@
             <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
                     class="m-4" severity="success"/>
             <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"  @click="resetTicket(ticket.ticket_id)"/>
-            <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
+            <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4 hidden"/>
           </div>
         </div>
       </form>
