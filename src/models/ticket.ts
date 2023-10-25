@@ -12,6 +12,7 @@ export default class Ticket {
     code_machine: number;
     code_client: number;
     code_technician: number;
+    ticket_id: number;
 
     constructor(ticket: Ticket) {
         this.id = ticket.id;
@@ -26,6 +27,8 @@ export default class Ticket {
         this.code_type = ticket.code_type;
         this.code_machine = ticket.code_machine;
         this.code_client = ticket.code_client;
-        this.code_technician = ticket.code_technician
+        this.code_technician = ticket.code_technician;
+        this.ticket_id = ticket.ticket_id;
     }
+
 }

@@ -2,7 +2,7 @@
   <div class="flex flex-row gap-4">
     <div class="left-panel">
       <DataTable :value="ticketSort" @row-click="onRowSelect">
-        <Column field="id" header="ID" class="border-solid"/>
+        <Column field="ticket_id" header="ID" class="border-solid"/>
         <Column field="status" header="Status">
           <template #body="{ data }">
             <TicketStatus :status="data.status"/>
@@ -39,10 +39,8 @@ const ticketSort = computed(() => {
   const sortedTickets = ticketStore.tickets.sort((a, b) => a.id - b.id);
   return sortedTickets;
 });
-
-console.log(ticketSort.value);
 onMounted(() => {
-  ticketStore.getTickets(authStore.user);
+ ticketStore.getTickets(authStore.user);
 });
 
 </script>

@@ -3,12 +3,12 @@
     <template #title>
       <div class="flex flex-row justify-content-between">
         <div class="flex align-items-center">
-          <div>Ticket n°{{ ticket?.id }}</div>
+          <div>Ticket n°{{ ticket?.ticket_id }}</div>
           <TicketStatus :status="ticket.status"/>
         </div>
         <div class="flex align-items-center">
           <label for="rating" class="flex align-items-center pr-2 text-sm">Urgence</label>
-          <Rating id="rating" v-model="ticket.emergency_degree" :cancel="false"/>
+          <Rating id="rating" v-model="ticket.emergency_degree" :cancel="false" disabled/>
         </div>
       </div>
     </template>
@@ -81,7 +81,7 @@
         </div>
         <div class="mt-4">
           <label for="address" class="p-2 block">Adresse</label>
-          <InputText v-model="ticket.location" placeholder="Adresse" id="address" class="w-full"/>
+          <InputText v-model="ticket.location" placeholder="Adresse" id="address" class="w-full" disabled/>
         </div>
 
         <Divider/>
@@ -106,16 +106,16 @@
                 v-model="ticket.code_technician"
                 :optionLabel="(technician) => technician.fullName()"
                 optionValue="id"
-                :options="tabTechnicians"/>
+                :options="tabTechnicians" disabled/>
         </div>
           <h3>Statut</h3>
           <div>
-            <Dropdown v-model="ticket.status" :options="status" optionLabel="name" optionValue="code" placeholder="Statut du ticket" class="md:w-14rem" />
+            <Dropdown v-model="ticket.status" :options="status" optionLabel="name" optionValue="code" placeholder="Statut du ticket" class="md:w-14rem" disabled/>
           </div>
           <div class="mx-auto">
             <Button type="button" label="Enregistrer" icon="pi pi-check" :loading="loading" @click="saveTicket"
                     class="m-4" severity="success"/>
-            <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"  @click="resetTicket(ticket.id)"/>
+            <Button type="button" label="Annuler les changements" icon="pi pi-history" class="m-4"  @click="resetTicket(ticket.ticket_id)"/>
             <Button type="button" label="Supprimer" icon="pi pi-times" severity="danger" class="m-4"/>
           </div>
         </div>
@@ -152,6 +152,7 @@ const props = defineProps({
 
 const {ticket} = toRefs(props);
 
+
 const tabTechnicians = computed(() => userStore.technicians);
 const loading = ref(false);
 const visible = ref(false);
@@ -171,24 +172,11 @@ watch(ticket, () => {
   refreshExtra();
 });
 
-function transformDate(){
-  if (ticket.value.intervention_start){
-    ticket.value.intervention_start = new Date(ticket.value.intervention_start);
-  }
-  if (ticket.value.intervention_end){
-    ticket.value.intervention_end = new Date(ticket.value.intervention_end);
-  }
-}
 async function saveTicket() {
-  if (ticket.value.intervention_start){
-    const dateStart = new Date(ticket.value.intervention_start );
-    dateStart.toISOString();
-  }
-  if (ticket.value.intervention_end){
-    const dateEnd = new Date(ticket.value.intervention_end );
-    dateEnd.toISOString();
-  }
-  await ticketStore.updateTicket(ticket.value.id, ticket.value);
+  ticket.value.id = ticket.value.ticket_id;
+  const ticketData = { ...ticket.value };
+  delete ticketData.ticket_id;
+  await ticketStore.updateTicket(ticket.value.ticket_id, ticketData);
   await ticketStore.getTickets(authStore.user);
   visible.value = true;
 }
@@ -203,15 +191,12 @@ async function resetTicket(idTicket : number){
   ticket.value.status = ticketFromStore.status;
   ticket.value.code_technician = ticketFromStore.code_technician;
   ticket.value.emergency_degree = ticketFromStore.emergency_degree;
-
-  transformDate();
 }
 
 
 function refreshExtra() {
   deviceStore.getDeviceById(ticket.value.code_machine);
   userStore.getUserById(ticket.value.code_client);
-  transformDate();
 }
 
 </script>
