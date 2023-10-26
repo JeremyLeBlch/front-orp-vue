@@ -40,7 +40,7 @@ export default class User {
     }
 
     public isTechnician() {
-        return this.user_role === "technicien";
+        return this.user_role === "intervention";
     }
 
     public isPlanning() {
