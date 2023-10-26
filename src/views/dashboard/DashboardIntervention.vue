@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row gap-4">
+  <div class="flex flex-column sm:flex-row gap-4">
     <div class="left-panel">
       <DataTable :value="ticketSort" @row-click="onRowSelect">
         <Column field="ticket_id" header="ID" class="border-solid"/>
@@ -10,7 +10,7 @@
         </Column>
       </DataTable>
     </div>
-    <div class="flex-grow-1 h-min">
+    <div class="flex-grow-1 h-min ">
       <TicketDetailByIntervention :ticket="selectedTicket" v-if="selectedTicket"/>
     </div>
   </div>

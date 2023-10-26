@@ -1,7 +1,7 @@
 <template>
   <Card v-if="ticket" class="h-min">
     <template #title>
-      <div class="flex flex-row justify-content-between">
+      <div class="flex flex-column sm:flex-row justify-content-between">
         <div class="flex align-items-center">
           <div>Ticket n°{{ ticket?.ticket_id }}</div>
           <TicketStatus :status="ticket.status"/>
@@ -14,7 +14,7 @@
     </template>
     <template #content>
       <form @submit="saveTicket">
-        <div class="flex flex-row">
+        <div class="flex flex-column sm:flex-row">
           <!-- MACHINE -->
           <div class="flex-grow-1">
             <h3>Machine</h3>

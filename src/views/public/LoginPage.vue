@@ -74,23 +74,23 @@ const password = ref('');
 const devAuthUsers = ref({
   jeremy: [
     {
-      email: "Aliya.Cummings@yahoo.com",
-      password: "%4_N7o6fTk",
+      email: "thomevictor@gmail.com",
+      password: "P@ssw0rd1",
       role: "intervention"
     },
     {
-      email: "Josiah.Cormier33@gmail.com",
-      password: "#8rwAB2qGA",
+      email: "legaigneurbastien@gmail.com",
+      password: "P@ssw0rd1",
       role: "user"
     },
     {
-      email: "Clarabelle84@yahoo.com",
-      password: "*3av8MTCp7",
+      email: "clequinthomas@gmail.com",
+      password: "P@ssw0rd1",
       role: "planning"
     },
     {
-      email: "Sheldon58@hotmail.com",
-      password: "%9cjKuPNpv",
+      email: "alexispean@gmail.com",
+      password: "P@ssw0rd",
       role: "admin"
     },
   ],
