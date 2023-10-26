@@ -37,9 +37,9 @@
                 <td class="p-2"><InputText v-model="device.serial_number" class="col-4" /></td>
               </tr>
               <tr>
-                <th class="bg-primary-900 p-2 text-left">Entreprise</th>
+                <th class="bg-primary-900 p-2 text-left">Client</th>
                 <td class="p-2">
-                  <CompanySelector v-model="device.code_owner"  class="col-4"/>
+                  <UserSelector v-model="device.code_owner"  class="col-4"/>
                 </td>
               </tr>
               <tr>
@@ -77,13 +77,19 @@
 <script setup lang="ts">
 import {onMounted, ref, toRefs, watch} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
+import { useToast } from "primevue/usetoast";
+
+
 import Device from "@/models/device";
 import CompanySelector from "@/components/company/CompanySelector.vue";
-import { useToast } from "primevue/usetoast";
+import UserSelector from "@/components/user/UserSelector.vue";
 
 const toast = useToast();
 const visible = ref(false)
 const deviceStore = useDeviceStore();
+
+
+
 
 const props = defineProps({
   device : {

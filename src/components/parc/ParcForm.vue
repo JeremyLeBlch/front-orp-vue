@@ -27,7 +27,7 @@
             <tr>
               <th class="bg-primary-900 p-2 text-left">Propriétaire</th>
               <td class="p-2">
-                <InputNumber v-model="formDevice.code_owner" class="col-9" />
+                <UserSelector v-model="formDevice.code_owner" class="col-9" />
               </td>
             </tr>
           </table>
@@ -44,6 +44,8 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import {useDeviceStore} from "@/stores/device-store";
+import UserSelector from "@/components/user/UserSelector.vue";
+
 import Device from "@/models/device";
 
 const deviceStore = useDeviceStore();
