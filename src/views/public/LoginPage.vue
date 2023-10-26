@@ -96,23 +96,23 @@ const devAuthUsers = ref({
   ],
   jeb: [
     {
-      email: "Lucienne16@yahoo.com",
-      password: "Qwerty1234!",
+      email: "intervention@gmail.fr",
+      password: "P@ssw0rd",
       role: "intervention"
     },
     {
-      email: "JEB@gmail.fr",
-      password: "Qwerty1234!",
+      email: "username@gmail.fr",
+      password: "P@ssw0rd",
       role: "user"
     },
     {
-      email: "Damian_Daugherty71@yahoo.com",
-      password: "Qwerty1234!",
+      email: "planning@gmail.com",
+      password: "P@ssw0rd",
       role: "planning"
     },
     {
-      email: "Sylvan21@hotmail.com",
-      password: "Qwerty1234!",
+      email: "julienespenanbaron@gmail2.com",
+      password: "P@ssw0rd",
       role: "admin"
     },
   ]
