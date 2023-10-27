@@ -9,6 +9,7 @@ export const useUserStore = defineStore("user", () => {
     const user = ref<User>(null);
     const userRoles = ref<string[]>([]);
     const technicians = ref<User[]>([]);
+    const clients = ref<User[]>([]);
 
     const getUsers = async (user: User) => {
         users.value = await userDao.getUsers(user);
@@ -22,6 +23,11 @@ export const useUserStore = defineStore("user", () => {
 
     const getAllTechnicians = async () => {
         technicians.value = await userDao.getAllTechnicians();
+    };
+
+    const getAllClients = async () => {
+        clients.value = null;
+        clients.value = await userDao.getAllClients();
     };
 
     const createUser = async (formUser : Partial<User>) => {
@@ -44,7 +50,9 @@ export const useUserStore = defineStore("user", () => {
         getUserById,
         user,
         getAllTechnicians,
+        getAllClients,
         technicians,
+        clients,
         saveUser,
         createUser,
         deleteUser

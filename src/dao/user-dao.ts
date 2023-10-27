@@ -44,6 +44,16 @@ export const userDao = {
         return jsonData.map(userJson => new User(userJson));
     },
 
+    getAllClients : async (): Promise<User[]> => {
+        const response = await fetch(envUtils.apiUrl + `/api/user/client`, {
+            method: 'GET',
+            headers: {'Content-Type' : 'application/json'}
+        });
+
+        const jsonData: User[] = await response.json();
+        return jsonData.map(userJson => new User(userJson));
+    },
+
     createUser: async (formUser: Partial<User>): Promise<User> => {
         const response = await fetch(envUtils.apiUrl + '/api/user', {
             method: 'POST',

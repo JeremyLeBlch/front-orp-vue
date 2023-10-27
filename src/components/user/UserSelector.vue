@@ -1,7 +1,7 @@
 <template>
   <Dropdown v-model="selected"
             :options="selectable"
-            option-label="name"
+            option-label="Name"
             option-value="id"
             placeholder="Sélection du client"
             class="col-4" />
@@ -17,7 +17,7 @@ const userStore = useUserStore();
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps<{ modelValue: number }>();
 
-const selectable = computed(() => userStore.users);
+const selectable = computed(() => userStore.clients);
 
 const selected = computed({
   get() {
@@ -29,7 +29,8 @@ const selected = computed({
 });
 
 onMounted(() => {
-  userStore.getUsers();
+  userStore.getAllClients();
+  console.log("onmunted", userStore.getAllClients())
 });
 
 
