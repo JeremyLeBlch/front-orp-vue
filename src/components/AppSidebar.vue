@@ -76,18 +76,18 @@ const userRoutes = [
   // }
 ];
 const planningRoutes = [
-  {
-    label: 'Planning',
-    command: () => openPage(RouteName.planning)
-  },
+  // {
+  //   label: 'Planning',
+  //   command: () => openPage(RouteName.planning)
+  // },
   {
     label: 'Ticket',
     command: () => openPage(RouteName.allTickets)
   },
-  {
-    label: 'Parc Client',
-    command: () => openPage(RouteName.allParc)
-  },
+  // {
+  //   label: 'Parc Client',
+  //   command: () => openPage(RouteName.allParc)
+  // },
   // {
   //   label: 'Messagerie',
   //   command: () => openPage(RouteName.messaging)
