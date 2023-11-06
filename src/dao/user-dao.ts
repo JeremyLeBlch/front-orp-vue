@@ -46,9 +46,7 @@ export const userDao = {
   createUser: async (formUser: Partial<User>): Promise<User> => {
     const response = await fetch(envUtils.apiUrl + '/api/user', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: daoUtils.getHeaders(),
       body: JSON.stringify(formUser),
     });
 
@@ -71,7 +69,7 @@ export const userDao = {
   getAllClients : async (): Promise<User[]> => {
     const response = await fetch(envUtils.apiUrl + `/api/user/client`, {
       method: 'GET',
-      headers: {'Content-Type' : 'application/json'}
+      headers: daoUtils.getHeaders()
     });
 
     const jsonData: User[] = await response.json();
